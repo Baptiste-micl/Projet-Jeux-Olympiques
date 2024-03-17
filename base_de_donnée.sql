@@ -2,7 +2,6 @@
 -- Création des tables :
 --
 
-
 CREATE TABLE Pays (
     id_pays INT PRIMARY KEY,
     nom_pays VARCHAR(100) NOT NULL,
@@ -77,3 +76,11 @@ CREATE TABLE Billets (
     nombre_disponible INT,
     FOREIGN KEY (id_epreuve) REFERENCES Epreuves(id_epreuve)
 );
+
+--
+-- Insertion de valeurs dans les tables :
+--
+
+INSERT INTO Pays
+VALUES	(1, 'FRANCE', 'https://fr.wikipedia.org/wiki/Drapeau_de_la_France#/media/Fichier:Flag_of_France_(1794%E2%80%931815,_1830%E2%80%931974).svg'),
+	(2, 'ALLEMAGNE', 'https://fr.wikipedia.org/wiki/Drapeau_de_l%27Allemagne#/media/Fichier:Flag_of_Germany.svg');
