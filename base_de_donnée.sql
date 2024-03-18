@@ -81,6 +81,21 @@ CREATE TABLE Billets (
 -- Insertion de valeurs dans les tables :
 --
 
+
+-- Insertion pour les Pays
 INSERT INTO Pays
 VALUES	(1, 'FRANCE', 'https://fr.wikipedia.org/wiki/Drapeau_de_la_France#/media/Fichier:Flag_of_France_(1794%E2%80%931815,_1830%E2%80%931974).svg'),
 	(2, 'ALLEMAGNE', 'https://fr.wikipedia.org/wiki/Drapeau_de_l%27Allemagne#/media/Fichier:Flag_of_Germany.svg');
+
+
+-- Insertion pour les disciplines
+INSERT INTO Pays
+VALUES	(1, 'Foot', 'Un jeu avec un ballon'),
+	(2, 'Judo', 'a quand gary vs kenzi ?');
+
+-- Insertion pour les equipes
+
+-- Insertion pour les lieux 
+INSERT INTO Lieu
+VALUES	(1, 'Paris', 'La Seine', '20000'),
+	(2, 'Marseille', 'La plage', '10000');
