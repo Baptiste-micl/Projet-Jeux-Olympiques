@@ -7,7 +7,7 @@ fenetre.title("Jeux-Olympiques")
 liste_resultat=["Pays", "Pays + discipline"]
 
 # Création d'un bouton
-bouton = tk.Button(fenetre, text="Quitter", command=racine.quit)
+bouton = tk.Button(fenetre, text="Quitter", command=fenetre.quit)
 bouton.pack()
 
 # Lancement de la boucle principale
