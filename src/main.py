@@ -4,13 +4,11 @@ import tkinter as tk
 fenetre= tk.Tk()
 fenetre.title("Jeux-Olympiques")
 
-# Création d'un label
-label = tk.Label(racine, text="Bonjour à tous !")
-label.pack()
+liste_resultat=["Pays", "Pays + discipline"]
 
 # Création d'un bouton
-bouton = tk.Button(racine, text="Quitter", command=racine.quit)
+bouton = tk.Button(fenetre, text="Quitter", command=racine.quit)
 bouton.pack()
 
 # Lancement de la boucle principale
-racine.mainloop()
+fenetre.mainloop()
