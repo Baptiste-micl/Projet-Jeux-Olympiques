@@ -32,8 +32,10 @@ CREATE TABLE Equipes (
     nom_equipe VARCHAR(100) NOT NULL,
     id_pays INT,
     id_discipline INT,
-    FOREIGN KEY (pays_id) REFERENCES Pays(id_pays),
+    id_sportif INT,
+    FOREIGN KEY (id_pays) REFERENCES Pays(id_pays),
     FOREIGN KEY (id_discipline) REFERENCES Disciplines(id_discipline)
+    FOREIGN KEY (id_sportif) REFERENCES Sportifs(id_sportif)
 );
 
 -- Table pour les résultats par pays (or, argent, bronze)
