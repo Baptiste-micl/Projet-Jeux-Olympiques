@@ -3,7 +3,7 @@
 --
 
 CREATE TABLE Pays (
-    id_pays INT PRIMARY KEY,
+    id_pays INT PRIMARY KEY,,
     nom_pays VARCHAR(100) NOT NULL,
     drapeau_pays VARCHAR(255)
 );
