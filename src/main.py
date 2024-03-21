@@ -1,18 +1,16 @@
 import tkinter as tk
 
-class App(tk.Frame):
-    def __init__(self, master=None):
-        super().__init__(master)
-        self.pack()
+# Création de la fenêtre principale
+racine = tk.Tk()
+racine.title("Ma première application")
 
-# create the application
-myapp = App()
+# Création d'un label
+label = tk.Label(racine, text="Bonjour à tous !")
+label.pack()
 
-#
-# here are method calls to the window manager class
-#
-myapp.master.title("Jeux-Olympiques")
-myapp.master.maxsize(1000, 400)
+# Création d'un bouton
+bouton = tk.Button(racine, text="Quitter", command=racine.quit)
+bouton.pack()
 
-# start the program
-myapp.mainloop()
+# Lancement de la boucle principale
+racine.mainloop()
