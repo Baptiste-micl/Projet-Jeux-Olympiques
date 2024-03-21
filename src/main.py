@@ -9,7 +9,7 @@ fenetre.geometry("800x400")
 resultats = ["Pays", "Pays + Disciplines"]
 # Listes des sportifs et des disciplines
 listes = ["Sportifs", "Disciplines"]
-anneaux_olympique = tk.PhotoImage(file="images/anneaux_olympiques.jpg")
+anneaux_olympique = tk.PhotoImage(file="Baptiste-micl/Projet-Jeux-Olympiques/images/anneaux_olympiques.jpg")
 
 # Fonction pour afficher la sélection
 def afficher_selection(choix):
