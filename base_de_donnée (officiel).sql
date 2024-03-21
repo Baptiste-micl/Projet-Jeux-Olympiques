@@ -78,11 +78,13 @@ VALUES ('Mayer', 'Kevin', '1992-02-10', 1, 1),
 
 -- Insertion pour les resultats
 INSERT INTO Resultats (id_pays, id_discipline, medaille_or, medaille_argent, medaille_bronze)
-VALUES (2, 2, 1, 0, 0),  -- USA, Natation, Or
-       (1, 1, 1, 0, 0),  -- France, Athlétisme, Or
-       (3, 1, 0, 1, 0),  -- Canada, Athlétisme, Argent
-       (1, 6, 1, 0, 0),  -- France, Tennis, Or
-       (2, 6, 1, 0, 0),  -- USA, Tennis, Or
-       (3, 6, 0, 1, 0),  -- Canada, Tennis, Argent
-       (1, 8, 0, 0, 1),  -- France, Gymnastique, Bronze
-       (7, 4, 1, 0, 0);  -- Espagne, Football, Or
+VALUES (1, 2, 1, 0, 0),  -- France, Athlétisme
+       (1, 1, 1, 0, 0),  -- France, Judo
+       (2, 1, 0, 1, 0),  -- États-unis, Athlétisme
+       (2, 6, 1, 0, 0),  -- États-unis, Natation
+       (3, 6, 1, 0, 0),  -- Canada, Athlétisme
+       (3, 6, 0, 1, 0),  -- Canada, Natation
+       (4, 8, 0, 0, 1),  -- Angleterre, Natation
+       (4, 8, 0, 0, 1),  -- Angleterre, Judo
+       (5, 4, 1, 0, 0);  -- Italie, Natation
+       (5, 4, 1, 0, 0);  -- Italie, Judo
