@@ -4,15 +4,15 @@ class App(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.pack()
-        
-app = App()
 
-app.master.title("Jeux Olympiques")
-app.master.minsize(900, 500)
+# create the application
+myapp = App()
 
-fond_app = tk.PhotoImage(file="images/anneaux_olympiques.png")
+#
+# here are method calls to the window manager class
+#
+myapp.master.title("Jeux-Olympiques")
+myapp.master.maxsize(1000, 400)
 
-fond_label = tk.Label(app, image=fond_app)
-fond_label.pack()
-
-app.mainloop()
+# start the program
+myapp.mainloop()
