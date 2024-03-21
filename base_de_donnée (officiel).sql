@@ -23,6 +23,7 @@ CREATE TABLE Sportifs (
     date_de_naissance DATE,
     id_pays INT,
     id_discipline INT,
+    id_equipe INT,
     FOREIGN KEY (id_pays) REFERENCES Pays(id_pays)
 );
 
