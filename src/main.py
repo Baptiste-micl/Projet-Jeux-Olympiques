@@ -1,8 +1,8 @@
 import tkinter as tk
 
 # Création de la fenêtre principale
-racine = tk.Tk()
-racine.title("Ma première application")
+fenetre= tk.Tk()
+fenetre.title("Jeux-Olympiques")
 
 # Création d'un label
 label = tk.Label(racine, text="Bonjour à tous !")
