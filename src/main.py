@@ -18,6 +18,17 @@ listes = ["Sportifs", "Disciplines"]
 # Ici on charge l'image
 fond = tk.PhotoImage(file="images/anneaux_olympiques.png").subsample(2)
 
+# Fonction test pour futur affichage des listes
+def test_liste():
+    def test_chercher():
+        mot = "TA GUEULE"
+        entry.delete(0, tk.END)
+        entry.insert(0, mot)
+    entry = tk.Entry(cadre3, text="Jeux-Olympique", font=("Helvetica", 20), bg='lightgray', fg ='darkgreen')
+    entry.pack()
+    bouton_afficher2 = tk.Button(cadre3, text="Chercher", command=test_chercher, font=("Georgia", 12), bg='lightgreen', fg ='black')
+    bouton_afficher2.pack()
+
 # Fonction pour afficher la sélection
 def afficher_selection(choix):
   if choix == "Pays":
@@ -58,7 +69,7 @@ bouton_afficher1 = tk.Button(cadre1, text="Résultats", command=lambda: afficher
 bouton_afficher1.pack()
 
 # Bouton pour afficher les différentes listes
-bouton_afficher2 = tk.Button(cadre2, text="Listes", command=lambda: afficher_selection(choix_selectionne2.get()))
+bouton_afficher2 = tk.Button(cadre2, text="Listes", command=test_liste)
 bouton_afficher2.pack()
 
 
