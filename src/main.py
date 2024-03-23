@@ -1,9 +1,11 @@
 import tkinter as tk
+from liste_sportifs import liste_sportifs
+
 
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
-fenetre.geometry("800x400")
+fenetre.geometry("900x500")
 fenetre.iconbitmap("/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/icone_application.ico")
 
 # Listes des resultats
@@ -16,17 +18,24 @@ fond = tk.PhotoImage(file="/Users/baptiste/Documents/CodePython/Projet-Jeux-Olym
 
 # Fonction pour afficher la sélection
 def afficher_selection(choix):
-  label.config(text=f"Sélectionné : {choix}")
+  if choix == "Pays":
+    print("bonjour")
+  elif choix == "Pays + Disciplines":
+    print("Bonjour2")
+  elif choix == "Sportifs":
+    label_fond.configure(text="bonjour", image="")
+  else:
+    print("Bonjour4")
 
 # Cadre pour le premier bouton déroulant
 cadre1 = tk.Frame(fenetre)
-cadre1.pack(side="left")
+cadre1.pack(side="left", fill="y")
 # Cadre pour le deuxieme bouton déroulant
 cadre2 = tk.Frame(fenetre)
-cadre2.pack(side="right")
+cadre2.pack(side="right", fill="y")
 # Cadre pour l'image et pour les différentes fenetres
 cadre3 = tk.Frame(fenetre)
-cadre3.pack(anchor="center")
+cadre3.pack(expand=1,side="top", fill="both")
 
 # Variable pour stocker la sélection
 choix_selectionne1 = tk.StringVar()
@@ -51,8 +60,8 @@ bouton_afficher2 = tk.Button(cadre2, text="Listes", command=lambda: afficher_sel
 bouton_afficher2.pack()
 
 
-label2 = tk.Label(fenetre, image=fond)
-label2.pack()
+label_fond = tk.Label(fenetre, image=fond)
+label_fond.pack()
 
 
 label = tk.Label(fenetre, text="")
