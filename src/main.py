@@ -6,7 +6,9 @@ from liste_sportifs import liste_sportifs
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
 fenetre.geometry("900x500")
-fenetre.iconbitmap("/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/icone_application.ico")
+fenetre.minsize(500, 300)
+fenetre.config(background='lightgray')
+fenetre.iconbitmap("images/icone_application.ico")
 
 # Listes des resultats
 resultats = ["Pays", "Pays + Disciplines"]
@@ -14,7 +16,7 @@ resultats = ["Pays", "Pays + Disciplines"]
 listes = ["Sportifs", "Disciplines"]
 
 # Ici on charge l'image
-fond = tk.PhotoImage(file="/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/anneaux_olympiques.png")
+fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
 
 # Fonction pour afficher la sélection
 def afficher_selection(choix):
@@ -28,10 +30,10 @@ def afficher_selection(choix):
     print("Bonjour4")
 
 # Cadre pour le premier bouton déroulant
-cadre1 = tk.Frame(fenetre)
+cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre1.pack(side="left", fill="y")
 # Cadre pour le deuxieme bouton déroulant
-cadre2 = tk.Frame(fenetre)
+cadre2 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre2.pack(side="right", fill="y")
 # Cadre pour l'image et pour les différentes fenetres
 cadre3 = tk.Frame(fenetre)
