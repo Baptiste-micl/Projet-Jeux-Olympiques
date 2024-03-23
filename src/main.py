@@ -5,7 +5,7 @@ from liste_sportifs import liste_sportifs
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
-fenetre.geometry("900x500")
+fenetre.geometry("600x400")
 fenetre.minsize(500, 300)
 fenetre.config(background='lightgray')
 fenetre.iconbitmap("images/icone_application.ico")
@@ -16,7 +16,7 @@ resultats = ["Pays", "Pays + Disciplines"]
 listes = ["Sportifs", "Disciplines"]
 
 # Ici on charge l'image
-fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
+fond = tk.PhotoImage(file="images/anneaux_olympiques.png").subsample(2)
 
 # Fonction pour afficher la sélection
 def afficher_selection(choix):
