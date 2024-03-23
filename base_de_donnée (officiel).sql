@@ -1,4 +1,14 @@
 --
+-- Création de la base de donnée
+--
+
+DROP DATABASE IF EXISTS Jeux_olympiques;
+
+CREATE DATABASE Jeux_olympiques CHARACTER SET 'utf8';
+
+USE Jeux_olympiques;
+
+--
 -- Création des tables :
 --
 
@@ -12,7 +22,7 @@ CREATE TABLE Pays (
 CREATE TABLE Disciplines (
     id_discipline INT PRIMARY KEY,
     nom_discipline VARCHAR(100) NOT NULL,
-    description_discipline INT
+    description_discipline VARCHAR(255)
 );
 
 -- Table pour les sportifs
@@ -48,43 +58,43 @@ CREATE TABLE Resultats (
 
 
 -- Insertion pour les Pays
-INSERT INTO Pays (nom_pays, drapeau_pays)
-VALUES ('France', '[Image du drapeau français: URL non valide]'),
-       ('États-Unis', '[Image du drapeau américain: URL non valide]'),
-       ('Canada', '[Image du drapeau canadien: URL non valide]'),
-       ('Angleterre', '[Image du drapeau britannique: URL non valide]'),
-       ('Italie', '[Image du drapeau italien: URL non valide]');
+INSERT INTO Pays 
+VALUES (1,'France', '[Image du drapeau français: URL non valide]'),
+       (2,'États-Unis', '[Image du drapeau américain: URL non valide]'),
+       (3,'Canada', '[Image du drapeau canadien: URL non valide]'),
+       (4,'Angleterre', '[Image du drapeau britannique: URL non valide]'),
+       (5,'Italie', '[Image du drapeau italien: URL non valide]');
 
 
 -- Insertion pour les disciplines
-INSERT INTO Disciplines (nom_discipline, description_discipline)
-VALUES ('Athlétisme', 'Course, saut, lancer'),
-       ('Natation', 'Crawl, dos, papillon...'),
-       ('Judo', 'un jeu de bagarre');
+INSERT INTO Disciplines 
+VALUES (1,'Athlétisme', 'Course, saut, lancer'),
+       (2,'Natation', 'Crawl, dos, papillon...'),
+       (3,'Judo', 'un jeu de bagarre');
 
 -- Insertion pour les sportifs
-INSERT INTO Sportifs (nom_sportif, prenom_sportif, date_de_naissance, id_pays, id_discipline)
-VALUES ('Mayer', 'Kevin', '1992-02-10', 1, 1),
-       ('Riner', 'Teddy', '1989-04-07', 1, 3),
-       ('Lyles', 'Noah', '1997-07-18', 2, 1),
-       ('Phelps', 'Michael', '1985-06-30', 2, 2),
-       ('Warner', 'Damian', '1989-10-04', 3, 1),
-       ('Know', 'Finlay', '2001-01-08', 3, 2)
-       ('Peaty', 'Adam', '1994-12-28', 4, 2),
-       ('Clark', 'Sarah', '1978-01-03', 4, 3),
-       ('Ceccon', 'Thomas', '2001-01-27', 5, 2),
-       ('Basile', 'Fabio', '1994-09-07', 5, 3);
+INSERT INTO Sportifs 
+VALUES (1,'Mayer', 'Kevin', '1992-02-10', 1, 1),
+       (2,'Riner', 'Teddy', '1989-04-07', 1, 3),
+       (3,'Lyles', 'Noah', '1997-07-18', 2, 1),
+       (4,'Phelps', 'Michael', '1985-06-30', 2, 2),
+       (5,'Warner', 'Damian', '1989-10-04', 3, 1),
+       (6,'Know', 'Finlay', '2001-01-08', 3, 2),
+       (7,'Peaty', 'Adam', '1994-12-28', 4, 2),
+       (8,'Clark', 'Sarah', '1978-01-03', 4, 3),
+       (9,'Ceccon', 'Thomas', '2001-01-27', 5, 2),
+       (10,'Basile', 'Fabio', '1994-09-07', 5, 3);
 
 
 -- Insertion pour les resultats
-INSERT INTO Resultats (id_pays, id_discipline, medaille_or, medaille_argent, medaille_bronze)
-VALUES (1, 2, 1, 0, 0),  -- France, Athlétisme
-       (1, 1, 1, 0, 0),  -- France, Judo
-       (2, 1, 0, 1, 0),  -- États-unis, Athlétisme
-       (2, 6, 1, 0, 0),  -- États-unis, Natation
-       (3, 6, 1, 0, 0),  -- Canada, Athlétisme
-       (3, 6, 0, 1, 0),  -- Canada, Natation
-       (4, 8, 0, 0, 1),  -- Angleterre, Natation
-       (4, 8, 0, 0, 1),  -- Angleterre, Judo
-       (5, 4, 1, 0, 0);  -- Italie, Natation
-       (5, 4, 1, 0, 0);  -- Italie, Judo
+INSERT INTO Resultats 
+VALUES (1, 1, 1, 0, 0, 1),  -- France, Athlétisme
+       (2, 1, 3, 0, 0, 0),  -- France, Judo
+       (3, 2, 1, 1, 0, 0),  -- États-unis, Athlétisme
+       (4, 2, 2, 0, 0, 0),  -- États-unis, Natation
+       (5, 3, 1, 0, 0, 0),  -- Canada, Athlétisme
+       (6, 3, 2, 1, 0, 0),  -- Canada, Natation
+       (7, 4, 2, 0, 1, 0),  -- Angleterre, Natation
+       (8, 4, 3, 0, 1, 0),  -- Angleterre, Judo
+       (9, 5, 2, 0, 0, 0),  -- Italie, Natation
+       (10, 5, 3, 0, 0, 0);  -- Italie, Judo
