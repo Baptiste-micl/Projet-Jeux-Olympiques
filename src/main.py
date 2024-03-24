@@ -77,7 +77,8 @@ bouton_deroulant1.pack()
 
 # Bouton déroulant2
 #bouton_deroulant2 = tk.OptionMenu(cadre2, choix_selectionne2, *listes)
-#bouton_deroulant2.pack()
+bouton_deroulant2 = tk.Button(cadre2, text="Listes",width=12, command=menu_liste,cursor='hand2', font=("Georgia", 12), bg='lightblue', fg ='black')
+bouton_deroulant2.pack()
 
 # Bouton pour afficher les résultats
 bouton_afficher1 = tk.Button(cadre1, text="Résultats", command=lambda: afficher_selection(choix_selectionne1.get()))
