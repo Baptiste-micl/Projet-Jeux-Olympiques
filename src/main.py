@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import font
-from listes import liste_disciplines
-from listes import liste_sportifs
+from listes import *
+from resultats import *
 
 
 # Fenêtre, titre et icone
@@ -38,7 +38,7 @@ def menu_liste():
     bouton_sportifs = tk.Button(cadre2,
                              cursor='hand2',
                              text="Sportifs", 
-                             font=("Courrier", 12), 
+                             font=(police, 12), 
                              width=12,
                              bg='gray', 
                              fg='black', 
@@ -49,7 +49,7 @@ def menu_liste():
     bouton_disciplines = tk.Button(cadre2,
                                    cursor='hand2', 
                                    text="Disciplines", 
-                                   font=("Courrier", 12),
+                                   font=(police, 12),
                                    width=12, 
                                    bg='gray', 
                                    activebackground = '#ACCDD8',
@@ -60,19 +60,19 @@ def menu_liste():
 # Fonction pour afficher le menu de gauche
 def menu_resultat():
     def menu_sportifs():
-         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
+         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
          texte = texte.replace("{", "").replace("}", "")
          label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
 
     def menu_disciplines():
-        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
+        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
         texte = texte.replace("{", "").replace("}", "")
         label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
 
     bouton_pays = tk.Button(cadre1,
                              cursor='hand2',
                              text="Pays", 
-                             font=("Courrier", 12), 
+                             font=(police, 12), 
                              width=12,
                              bg='gray', 
                              fg='black', 
@@ -83,7 +83,7 @@ def menu_resultat():
     bouton_disciplines = tk.Button(cadre1,
                                    cursor='hand2', 
                                    text="Disciplines", 
-                                   font=("Courrier", 12),
+                                   font=(police, 12),
                                    width=12, 
                                    bg='gray', 
                                    activebackground = '#ACCDD8',
@@ -114,7 +114,7 @@ bouton_deroulant1 = tk.Button(cadre1,
                               width=12, 
                               command=menu_resultat,
                               cursor='hand2', 
-                              font=("Georgia", 12), 
+                              font=(police, 12), 
                               bg='lightblue', 
                               fg ='black',
                               )
@@ -126,7 +126,7 @@ bouton_deroulant2 = tk.Button(cadre2,
                               width=12, 
                               command=menu_liste,
                               cursor='hand2', 
-                              font=("Georgia", 12), 
+                              font=(police, 12), 
                               bg='lightblue', 
                               fg ='black',
                               )
