@@ -1,11 +1,13 @@
 import tkinter as tk
-from liste_sportifs import liste_sportifs
+from tkinter import font
+from listes import liste_disciplines
+from listes import liste_sportifs
 
 
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
-fenetre.geometry("600x400")
+fenetre.geometry("900x500")
 fenetre.minsize(500, 300)
 fenetre.config(background='lightgray')
 fenetre.iconbitmap("images/icone_application.ico")
@@ -16,25 +18,22 @@ resultats = ["Pays", "Pays + Disciplines"]
 listes = ["Sportifs", "Disciplines"]
 
 # Ici on charge l'image
-fond = tk.PhotoImage(file="images/anneaux_olympiques.png").subsample(2)
+fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
+
+# Ici on défini une police pour toute la fenetre
+police = font.Font(family="Arial", size=20)
 
 # Fonction pour afficher le menu de droite
 def menu_liste():
-    def liste_sportifs():
-         label_sportifs = tk.Label(cadre3, 
-                                  text="Liste des sportifs :", 
-                                  font=("Berlin Sans FB", 20), 
-                                  bg='lightgray', 
-                                  fg ='darkgreen')
-         label_sportifs.pack()
+    def menu_sportifs():
+         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
+         texte = texte.replace("{", "").replace("}", "")
+         label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
 
-    def liste_disciplines():
-        label_discipline = tk.Label(cadre3, 
-                                text="Liste des disciplines :", 
-                                font=("Berlin Sans FB", 20), 
-                                 bg='lightgray', 
-                                 fg ='darkgreen')
-        label_discipline.pack()
+    def menu_disciplines():
+        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
+        texte = texte.replace("{", "").replace("}", "")
+        label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
 
     bouton_sportifs = tk.Button(cadre2,
                              cursor='hand2',
@@ -43,7 +42,7 @@ def menu_liste():
                              width=12,
                              bg='gray', 
                              fg='black', 
-                             command=liste_sportifs,
+                             command=menu_sportifs,
                              activebackground = '#ACCDD8')
     
     bouton_sportifs.pack()
@@ -55,7 +54,7 @@ def menu_liste():
                                    bg='gray', 
                                    activebackground = '#ACCDD8',
                                    fg='black', 
-                                   command=liste_disciplines)
+                                   command=menu_disciplines)
     bouton_disciplines.pack()
     bouton_gerer_sportifs = tk.Button(cadre2,
                                       cursor='hand2', 
@@ -67,13 +66,6 @@ def menu_liste():
                                       fg='black', 
                                       command=test_liste)
     bouton_gerer_sportifs.pack()
-    print("ouvert")
-    bouton_deroulant2.config(command=menu_liste_fermer)
-# Fonction pour l'etat du menu "fermé"
-def menu_liste_fermer():
-   #cadre2.destroy() # NE FONCTIONNE PAS
-   print("fermé")
-   bouton_deroulant2.config(command=menu_liste)
 
 # Fonction test pour futur affichage des listes
 def test_liste():
@@ -92,17 +84,6 @@ def test_liste():
                                  cursor='hand2')
     bouton_afficher2.pack()
 
-# Fonction pour afficher la sélection
-def afficher_selection(choix):
-  if choix == "Pays":
-    print("bonjour")
-  elif choix == "Pays + Disciplines":
-    print("Bonjour2")
-  elif choix == "Sportifs":
-    label_fond.configure(text="bonjour", image="")
-  else:
-    print("Bonjour4")
-
 # Cadre pour le premier bouton déroulant
 cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre1.pack(side="left", fill="y")
@@ -111,7 +92,7 @@ cadre2 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre2.pack(side="right", fill="y")
 # Cadre pour l'image et pour les différentes fenetres
 cadre3 = tk.Frame(fenetre)
-cadre3.pack(expand=1,side="top", fill="both")
+cadre3.pack(expand=False,side="top", fill="y")
 
 # Variable pour stocker la sélection
 choix_selectionne1 = tk.StringVar()
@@ -135,18 +116,8 @@ bouton_deroulant2 = tk.Button(cadre2,
                               )
 bouton_deroulant2.pack()
 
-# Bouton pour afficher les résultats
-bouton_afficher1 = tk.Button(cadre1, 
-                             text="Résultats", 
-                             command=lambda: afficher_selection(choix_selectionne1.get()))
-bouton_afficher1.pack()
-
 label_fond = tk.Label(fenetre, image=fond)
 label_fond.pack()
-
-
-label = tk.Label(fenetre, text="")
-label.pack()
 
 # Lancement de la boucle principale
 fenetre.mainloop()
