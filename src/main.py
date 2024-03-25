@@ -56,33 +56,41 @@ def menu_liste():
                                    fg='black', 
                                    command=menu_disciplines)
     bouton_disciplines.pack()
-    bouton_gerer_sportifs = tk.Button(cadre2,
-                                      cursor='hand2', 
-                                      text="Gérer les sportifs", 
-                                      font=("Courrier", 10),
-                                      width=12, 
-                                      bg='lightgreen', 
-                                      activebackground= '#AED8AC',
-                                      fg='black', 
-                                      command=test_liste)
-    bouton_gerer_sportifs.pack()
+  
+# Fonction pour afficher le menu de gauche
+def menu_resultat():
+    def menu_sportifs():
+         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
+         texte = texte.replace("{", "").replace("}", "")
+         label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
 
-# Fonction test pour futur affichage des listes
-def test_liste():
-    def test_chercher():
-        mot = "TA GUEULE"
-        entry.delete(0, tk.END)
-        entry.insert(0, mot)
-    entry = tk.Entry(cadre3, font=("Georgia", 20), bg='lightgray', fg ='darkgreen')
-    entry.pack()
-    bouton_afficher2 = tk.Button(cadre3, 
-                                 text="Chercher", 
-                                 command=test_chercher, 
-                                 font=("Georgia", 12), 
-                                 bg='lightgreen', 
-                                 fg ='black', 
-                                 cursor='hand2')
-    bouton_afficher2.pack()
+    def menu_disciplines():
+        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
+        texte = texte.replace("{", "").replace("}", "")
+        label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
+
+    bouton_pays = tk.Button(cadre1,
+                             cursor='hand2',
+                             text="Pays", 
+                             font=("Courrier", 12), 
+                             width=12,
+                             bg='gray', 
+                             fg='black', 
+                             command=menu_sportifs,
+                             activebackground = '#ACCDD8')
+    
+    bouton_pays.pack()
+    bouton_disciplines = tk.Button(cadre1,
+                                   cursor='hand2', 
+                                   text="Disciplines", 
+                                   font=("Courrier", 12),
+                                   width=12, 
+                                   bg='gray', 
+                                   activebackground = '#ACCDD8',
+                                   fg='black', 
+                                   command=menu_disciplines)
+    bouton_disciplines.pack()
+
 
 # Cadre pour le premier bouton déroulant
 cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
@@ -100,8 +108,16 @@ choix_selectionne1 = tk.StringVar()
 # Variable pour stocker la sélection
 choix_selectionne2 = tk.StringVar()
 
-# Bouton déroulant1
-bouton_deroulant1 = tk.OptionMenu(cadre1, choix_selectionne1, *resultats)
+# Bouton déroulant2
+bouton_deroulant1 = tk.Button(cadre1, 
+                              text="Resultats",
+                              width=12, 
+                              command=menu_resultat,
+                              cursor='hand2', 
+                              font=("Georgia", 12), 
+                              bg='lightblue', 
+                              fg ='black',
+                              )
 bouton_deroulant1.pack()
 
 # Bouton déroulant2
