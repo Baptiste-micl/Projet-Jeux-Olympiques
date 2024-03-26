@@ -10,7 +10,7 @@ fenetre.title("Jeux-Olympique")
 fenetre.geometry("900x500")
 fenetre.minsize(500, 300)
 fenetre.config(background='lightgray')
-fenetre.iconbitmap("images/icone_application.ico")
+fenetre.iconbitmap("/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/icone_application.ico")
 
 # Listes des resultats
 resultats = ["Pays", "Pays + Disciplines"]
@@ -18,7 +18,7 @@ resultats = ["Pays", "Pays + Disciplines"]
 listes = ["Sportifs", "Disciplines"]
 
 # Ici on charge l'image
-fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
+fond = tk.PhotoImage(file="/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/anneaux_olympiques.png")
 
 # Ici on défini une police pour toute la fenetre
 police = font.Font(family="Arial", size=20)
@@ -26,9 +26,10 @@ police = font.Font(family="Arial", size=20)
 # Fonction pour afficher le menu de droite
 def menu_liste():
     def menu_sportifs():
+         titre = "Liste des sportifs"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
          texte = texte.replace("{", "").replace("}", "")
-         label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
+         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
 
     def menu_disciplines():
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
@@ -63,6 +64,7 @@ def menu_resultat():
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
          texte = texte.replace("{", "").replace("}", "")
          label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
+         
 
     def menu_disciplines():
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
