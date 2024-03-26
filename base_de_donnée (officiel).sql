@@ -27,7 +27,7 @@ CREATE TABLE Disciplines (
 
 -- Table pour les sportifs
 CREATE TABLE Sportifs (
-    id_sportif INT PRIMARY KEY,
+    id_sportif INT PRIMARY KEY AUTO_INCREMENT,
     nom_sportif VARCHAR(100) NOT NULL,
     prenom_sportif VARCHAR(100) NOT NULL,
     date_de_naissance DATE,
