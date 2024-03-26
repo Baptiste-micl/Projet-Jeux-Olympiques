@@ -81,20 +81,7 @@ def menu_liste_fermer(cadre2, bouton_deroulant2):
 
 # Fonction à changer
 def test_liste():
-    def test_chercher():
-        mot = "TA GUEULE"
-        entry.delete(0, tk.END)
-        entry.insert(0, mot)
-    entry = tk.Entry(cadre3, font=("Georgia", 20), bg='lightgray', fg ='darkgreen')
-    entry.pack()
-    bouton_afficher2 = tk.Button(cadre3, 
-                                 text="Chercher", 
-                                 command=test_chercher, 
-                                 font=("Georgia", 12), 
-                                 bg='lightgreen', 
-                                 fg ='black', 
-                                 cursor='hand2')
-    bouton_afficher2.pack()
+    pass
 
 # Fonction pour afficher le menu de gauche
 def menu_resultat():
@@ -130,7 +117,16 @@ def menu_resultat():
                                    fg='black', 
                                    command=menu_resultats_disciplines)
     bouton_disciplines.pack()
+    bouton_deroulant1.config(command=appel_fonction_fermer_resultat)
 
+def appel_fonction_fermer_resultat():
+   menu_resultat_fermer(cadre1, bouton_deroulant1)
+
+def menu_resultat_fermer(cadre1, bouton_deroulant1):
+   for widget in cadre1.winfo_children():
+        if widget != bouton_deroulant1:
+            widget.destroy()
+   bouton_deroulant1.config(command=menu_resultat)
 
 # Cadre pour le premier bouton déroulant
 cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
