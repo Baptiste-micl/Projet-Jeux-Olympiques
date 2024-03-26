@@ -82,6 +82,20 @@ def menu_liste_fermer(cadre2, bouton_deroulant2):
 # Fonction à changer
 def test_liste():
     pass
+'''def test_chercher():
+        mot = "TA GUEULE"
+        entry.delete(0, tk.END)
+        entry.insert(0, mot)
+    entry = tk.Entry(cadre3, font=("Georgia", 20), bg='lightgray', fg ='darkgreen')
+    entry.pack()
+    bouton_afficher2 = tk.Button(cadre3, 
+                                 text="Chercher", 
+                                 command=test_chercher, 
+                                 font=("Georgia", 12), 
+                                 bg='lightgreen', 
+                                 fg ='black', 
+                                 cursor='hand2')
+    bouton_afficher2.pack()'''
 
 # Fonction pour afficher le menu de gauche
 def menu_resultat():
