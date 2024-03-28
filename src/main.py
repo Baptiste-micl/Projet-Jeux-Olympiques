@@ -10,7 +10,7 @@ fenetre.title("Jeux-Olympique")
 fenetre.geometry("900x500")
 fenetre.minsize(500, 300)
 fenetre.config(background='lightgray')
-fenetre.iconbitmap("images/icone_application.ico")
+fenetre.iconbitmap("/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/icone_application.ico")
 
 # Listes des resultats
 resultats = ["Pays", "Pays + Disciplines"]
@@ -18,7 +18,7 @@ resultats = ["Pays", "Pays + Disciplines"]
 listes = ["Sportifs", "Disciplines"]
 
 # Ici on charge l'image
-fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
+fond = tk.PhotoImage(file="/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/anneaux_olympiques.png")
 
 # Ici on défini une police pour toute la fenetre
 police = font.Font(family="Arial", size=20)
@@ -26,15 +26,16 @@ police = font.Font(family="Arial", size=20)
 # Fonction pour afficher le menu de droite
 def menu_liste():
     def menu_sportifs():
-         titre = "Liste des sportifs"
+         titre = "Liste des sportifs"+"\n"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
          texte = texte.replace("{", "").replace("}", "")
          label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
 
     def menu_disciplines():
+        titre = "Liste des disciplines"+"\n"
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
         texte = texte.replace("{", "").replace("}", "")
-        label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
+        label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
 
     bouton_sportifs = tk.Button(cadre2,
                              cursor='hand2',
@@ -57,18 +58,35 @@ def menu_liste():
                                    fg='black', 
                                    command=menu_disciplines)
     bouton_disciplines.pack()
-    bouton_gerer_sportifs = tk.Button(cadre2,
-                                      cursor='hand2', 
-                                      text="Gérer les sportifs", 
-                                      font=("Courrier", 10),
-                                      width=12, 
-                                      bg='lightgreen', 
-                                      activebackground= '#AED8AC',
-                                      fg='black', 
-                                      command=test_liste)
-    bouton_gerer_sportifs.pack()
+    bouton_ajouter_sportif = tk.Button(cadre2, text="Ajouter un sportif", font=(police, 12), 
+                    width=12,
+                    bg='gray', 
+                    fg='black', 
+                    command=fenetre_ajouter_sportif,
+                    activebackground = '#ACCDD8')
+    bouton_ajouter_sportif.pack()
     bouton_deroulant2.config(command=appel_fonction_fermer_liste)
-  
+
+def fenetre_ajouter_sportif():
+    nom_var = tk.StringVar()
+    prenom_var = tk.StringVar()
+    nom_entry = tk.Entry(cadre3, textvariable=nom_var, font=(police), bg='lightgray', fg='darkgreen')
+    nom_entry.pack()
+    prenom_entry = tk.Entry(cadre3, textvariable=prenom_var, font=(police), bg='lightgray', fg='darkgreen')
+    prenom_entry.pack()
+    bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
+        width=12,
+        bg='gray', 
+        fg='black', 
+        command=None,
+        activebackground = '#ACCDD8')
+    bouton_ajouter_sportif.pack()
+    label_fond.configure(image=(), font=police, bg="lightgray")
+
+def recuperer_valeur():
+    
+
+
 # Fonction pour l'etat du menu "fermé"
 def appel_fonction_fermer_liste():
    menu_liste_fermer(cadre2, bouton_deroulant2)
@@ -79,36 +97,21 @@ def menu_liste_fermer(cadre2, bouton_deroulant2):
             widget.destroy()
    bouton_deroulant2.config(command=menu_liste)
 
-# Fonction à changer
-def test_liste():
-    pass
-'''def test_chercher():
-        mot = "TA GUEULE"
-        entry.delete(0, tk.END)
-        entry.insert(0, mot)
-    entry = tk.Entry(cadre3, font=("Georgia", 20), bg='lightgray', fg ='darkgreen')
-    entry.pack()
-    bouton_afficher2 = tk.Button(cadre3, 
-                                 text="Chercher", 
-                                 command=test_chercher, 
-                                 font=("Georgia", 12), 
-                                 bg='lightgreen', 
-                                 fg ='black', 
-                                 cursor='hand2')
-    bouton_afficher2.pack()'''
-
+  
 # Fonction pour afficher le menu de gauche
 def menu_resultat():
     def menu_resultats_pays():
+         titre = "Liste des resultats par Pays"+"\n"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
          texte = texte.replace("{", "").replace("}", "")
-         label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
+         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
          
 
     def menu_resultats_disciplines():
+        titre = "Liste des resultats par Discipline"+"\n"
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
         texte = texte.replace("{", "").replace("}", "")
-        label_fond.configure(text=texte, image=(), font=police, bg="lightgray")
+        label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
 
     bouton_pays = tk.Button(cadre1,
                              cursor='hand2',
@@ -141,6 +144,7 @@ def menu_resultat_fermer(cadre1, bouton_deroulant1):
         if widget != bouton_deroulant1:
             widget.destroy()
    bouton_deroulant1.config(command=menu_resultat)
+
 
 # Cadre pour le premier bouton déroulant
 cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
