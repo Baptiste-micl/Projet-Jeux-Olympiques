@@ -14,9 +14,7 @@ class liste_sportifs():
     for sportifs in resultat:
         nom, prenom = sportifs
         # Ajout des valeurs au dictionnaire avec les clés "nom" et "prenom"
-        dico_sportifs[nom] = {prenom}
-
-    print(dico_sportifs)
+        dico_sportifs[nom] = prenom
 
 liste_sportifs = liste_sportifs()
 
@@ -31,8 +29,15 @@ class liste_disciplines():
     for disciplines in resultat:
         nom_discipline, description_discipline = disciplines
         # Ajout des valeurs au dictionnaire avec les clés "nom_discipline" et "description_discipline"
-        dico_disciplines[nom_discipline] = {description_discipline}
+        dico_disciplines[nom_discipline] = description_discipline
 
-    print(dico_disciplines)
 
 liste_disciplines = liste_disciplines()
+# Ici on ajoute sportif
+def ajouter_sportif(nom_sportif, prenom_sportif):
+    cursor = bdd.cursor()
+    sql = "INSERT INTO Sportifs(nom_sportif, prenom_sportif) VALUES (%s, %s)"
+    valeurs = (nom_sportif, prenom_sportif)
+    cursor.execute(sql, (valeurs))
+    bdd.commit()
+
