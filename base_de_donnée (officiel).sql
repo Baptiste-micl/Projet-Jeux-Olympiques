@@ -38,7 +38,7 @@ CREATE TABLE Sportifs (
 
 -- Table pour les résultats par pays (or, argent, bronze)
 CREATE TABLE Resultats (
-    id_resultat INT PRIMARY KEY,
+    id_resultat INT PRIMARY KEY AUTO_INCREMENT,
     id_pays INT,
     id_discipline INT,
     medaille_or INT DEFAULT 0,
