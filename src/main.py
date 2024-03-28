@@ -28,13 +28,11 @@ def menu_liste():
     def menu_sportifs():
          titre = "Liste des sportifs"+"\n"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
-         texte = texte.replace("{", "").replace("}", "")
          label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
 
     def menu_disciplines():
         titre = "Liste des disciplines"+"\n"
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
-        texte = texte.replace("{", "").replace("}", "")
         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
 
     bouton_sportifs = tk.Button(cadre2,
@@ -78,12 +76,14 @@ def fenetre_ajouter_sportif():
         width=12,
         bg='gray', 
         fg='black', 
-        command=None,
+        command=lambda: recuperer_valeurs(),
         activebackground = '#ACCDD8')
     bouton_ajouter_sportif.pack()
     label_fond.configure(image=(), font=police, bg="lightgray")
-
-def recuperer_valeur():
+    def recuperer_valeurs():
+       nom = nom_var.get()
+       prenom = prenom_var.get()
+       ajouter_sportif(nom, prenom)
     
 
 
@@ -103,14 +103,12 @@ def menu_resultat():
     def menu_resultats_pays():
          titre = "Liste des resultats par Pays"+"\n"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
-         texte = texte.replace("{", "").replace("}", "")
          label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
          
 
     def menu_resultats_disciplines():
         titre = "Liste des resultats par Discipline"+"\n"
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
-        texte = texte.replace("{", "").replace("}", "")
         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
 
     bouton_pays = tk.Button(cadre1,
