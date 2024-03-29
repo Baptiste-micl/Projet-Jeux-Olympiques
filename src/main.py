@@ -76,14 +76,25 @@ def fenetre_ajouter_sportif():
         width=12,
         bg='gray', 
         fg='black', 
-        command=lambda: recuperer_valeurs(),
-        activebackground = '#ACCDD8')
+        command=lambda: recuperer_valeurs1(),
+        background = '#ACCDD8')
     bouton_ajouter_sportif.pack()
+    bouton_supprimer_sportif = tk.Button(cadre3, text="Supprimer un sportif", font=(police, 12), 
+        width=12,
+        bg='gray', 
+        fg='black', 
+        command=lambda: recuperer_valeurs2(),
+        background = '#ACCDD8')
+    bouton_supprimer_sportif.pack()
     label_fond.configure(image=(), font=police, bg="lightgray")
-    def recuperer_valeurs():
+    def recuperer_valeurs1():
        nom = nom_var.get()
        prenom = prenom_var.get()
        ajouter_sportif(nom, prenom)
+    def recuperer_valeurs2():
+        nom = nom_var.get()
+        prenom = prenom_var.get()
+        supprimer_sportif(nom, prenom)
     
 
 
