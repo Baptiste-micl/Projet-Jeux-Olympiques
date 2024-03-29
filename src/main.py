@@ -91,12 +91,19 @@ def fenetre_ajouter_sportif():
        nom = nom_var.get()
        prenom = prenom_var.get()
        ajouter_sportif(nom, prenom)
+       vider_cadre3()
     def recuperer_valeurs2():
         nom = nom_var.get()
         prenom = prenom_var.get()
         supprimer_sportif(nom, prenom)
+        vider_cadre3()
     
-
+#Fonction pour effacer le contenu du cadre central
+def vider_cadre3():
+    for widget in cadre3.winfo_children():
+        widget.destroy()
+    cadre3.config(width=1)
+    label_fond.configure(image=fond)
 
 # Fonction pour l'etat du menu "fermé"
 def appel_fonction_fermer_liste():
@@ -107,7 +114,7 @@ def menu_liste_fermer(cadre2, bouton_deroulant2):
         if widget != bouton_deroulant2:
             widget.destroy()
    bouton_deroulant2.config(command=menu_liste)
-
+   vider_cadre3()#changement
   
 # Fonction pour afficher le menu de gauche
 def menu_resultat():
@@ -153,7 +160,7 @@ def menu_resultat_fermer(cadre1, bouton_deroulant1):
         if widget != bouton_deroulant1:
             widget.destroy()
    bouton_deroulant1.config(command=menu_resultat)
-
+   vider_cadre3()#changement
 
 # Cadre pour le premier bouton déroulant
 cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
@@ -162,7 +169,7 @@ cadre1.pack(side="left", fill="y")
 cadre2 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre2.pack(side="right", fill="y")
 # Cadre pour l'image et pour les différentes fenetres
-cadre3 = tk.Frame(fenetre)
+cadre3 = tk.Frame(fenetre, bg='lightgray', width=20)
 cadre3.pack(expand=False,side="top", fill="y")
 
 # Variable pour stocker la sélection
