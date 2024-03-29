@@ -41,3 +41,11 @@ def ajouter_sportif(nom_sportif, prenom_sportif):
     cursor.execute(sql, (valeurs))
     bdd.commit()
 
+
+# Ici on supprime un sportif
+def supprimer_sportif(nom_sportif, prenom_sportif):
+    cursor = bdd.cursor()
+    sql = "DELETE FROM Sportifs(nom_sportif, prenom_sportif) WHERE (%s, %s)"
+    valeurs = (nom_sportif, prenom_sportif)
+    cursor.execute(sql, (valeurs))
+    bdd.commit()
