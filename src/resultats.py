@@ -14,7 +14,7 @@ class resultat_pays():
     for resultat_pays in resultat:
         nom_pays, medaille_or, medaille_argent, medaille_bronze = resultat_pays
         # Ajout des valeurs au dictionnaire avec les clés 
-        dico_resultat_pays[nom_pays] = {medaille_or, medaille_argent, medaille_bronze}
+        dico_resultat_pays[nom_pays] = medaille_or, medaille_argent, medaille_bronze
 
 resultat_pays = resultat_pays()
 
@@ -29,6 +29,6 @@ class resultat_discipline():
     for resultat_disciplines in resultat:
         nom_pays, nom_discipline, medaille_or, medaille_argent, medaille_bronze = resultat_disciplines
         # Ajout des valeurs au dictionnaire avec les clés 
-        dico_resultat_disciplines[nom_pays] = {nom_discipline, medaille_or, medaille_argent, medaille_bronze}
+        dico_resultat_disciplines[nom_pays] = nom_discipline, medaille_or, medaille_argent, medaille_bronze
 
 resultat_discipline = resultat_discipline()
