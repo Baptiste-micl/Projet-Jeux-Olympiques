@@ -202,7 +202,7 @@ bouton_deroulant2 = tk.Button(cadre2,
                               )
 bouton_deroulant2.pack()
 
-label_fond = tk.Label(fenetre, image=fond)
+label_fond = tk.Label(cadre3, image=fond)
 label_fond.pack()
 
 # Lancement de la boucle principale
