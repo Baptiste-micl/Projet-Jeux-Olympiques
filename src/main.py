@@ -17,8 +17,9 @@ resultats = ["Pays", "Pays + Disciplines"]
 # Listes des sportifs et des disciplines
 listes = ["Sportifs", "Disciplines"]
 
-# Ici on charge l'image
+# Ici on charge les images
 fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
+pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") #changement
 
 # Ici on défini une police pour toute la fenetre
 police = font.Font(family="Arial", size=20)
@@ -26,11 +27,13 @@ police = font.Font(family="Arial", size=20)
 # Fonction pour afficher le menu de droite
 def menu_liste():
     def menu_sportifs():
+         vider_cadre3() #changement 
          titre = "Liste des sportifs"+"\n"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
          label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
 
     def menu_disciplines():
+        vider_cadre3() #changement 
         titre = "Liste des disciplines"+"\n"
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
@@ -66,6 +69,8 @@ def menu_liste():
     global_bouton_deroulant2.config(command=appel_fonction_fermer_liste)
 
 def fenetre_ajouter_sportif():
+    vider_cadre3() 
+    label_fond.configure(image=pixel_gris, font=police, bg="lightgray") # changement
     nom_var = tk.StringVar()
     prenom_var = tk.StringVar()
     nom_entry = tk.Entry(cadre3, textvariable=nom_var, font=(police), bg='lightgray', fg='darkgreen')
@@ -86,27 +91,24 @@ def fenetre_ajouter_sportif():
         command=lambda: recuperer_valeurs2(),
         background = '#ACCDD8')
     bouton_supprimer_sportif.pack()
-    label_fond.configure(image=(), font=police, bg="lightgray")
     def recuperer_valeurs1():
        nom = nom_var.get()
        prenom = prenom_var.get()
        ajouter_sportif(nom, prenom)
-       vider_cadre3()
     def recuperer_valeurs2():
         nom = nom_var.get()
         prenom = prenom_var.get()
         supprimer_sportif(nom, prenom)
-        vider_cadre3()
     
 #Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
     for widget in cadre3.winfo_children():
-        if widget != label_fond: # changement
+        if widget != label_fond: 
             widget.destroy()
     label_fond.configure(image=fond) 
 
 # Fonction permettant de fermer les menus
-def fermer_menu(cadre, bouton_deroulant):# changement
+def fermer_menu(cadre, bouton_deroulant):
    for widget in cadre.winfo_children():
         if widget != bouton_deroulant:
             widget.destroy()
