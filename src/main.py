@@ -78,18 +78,18 @@ def fenetre_ajouter_sportif():
     prenom_entry = tk.Entry(cadre3, textvariable=prenom_var, font=(police), bg='lightgray', fg='darkgreen')
     prenom_entry.pack()
     bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
-        width=12,
+        width=15,
         bg='gray', 
         fg='black', 
         command=lambda: recuperer_valeurs1(),
-        background = '#ACCDD8')
+        )
     bouton_ajouter_sportif.pack()
     bouton_supprimer_sportif = tk.Button(cadre3, text="Supprimer un sportif", font=(police, 12), 
-        width=12,
+        width=15,
         bg='gray', 
         fg='black', 
         command=lambda: recuperer_valeurs2(),
-        background = '#ACCDD8')
+        )
     bouton_supprimer_sportif.pack()
     def recuperer_valeurs1():
        nom = nom_var.get()
