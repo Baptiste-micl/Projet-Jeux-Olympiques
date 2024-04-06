@@ -10,7 +10,7 @@ fenetre.title("Jeux-Olympique")
 fenetre.geometry("900x500")
 fenetre.minsize(500, 300)
 fenetre.config(background='lightgray')
-fenetre.iconbitmap("/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/icone_application.ico")
+fenetre.iconbitmap("images/icone_application.ico")
 
 # Listes des resultats
 resultats = ["Pays", "Pays + Disciplines"]
@@ -18,7 +18,7 @@ resultats = ["Pays", "Pays + Disciplines"]
 listes = ["Sportifs", "Disciplines"]
 
 # Ici on charge l'image
-fond = tk.PhotoImage(file="/Users/baptiste/Documents/CodePython/Projet-Jeux-Olympiques/images/anneaux_olympiques.png")
+fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
 
 # Ici on défini une police pour toute la fenetre
 police = font.Font(family="Arial", size=20)
@@ -63,7 +63,7 @@ def menu_liste():
                     command=fenetre_ajouter_sportif,
                     activebackground = '#ACCDD8')
     bouton_ajouter_sportif.pack()
-    bouton_deroulant2.config(command=appel_fonction_fermer_liste)
+    global_bouton_deroulant2.config(command=appel_fonction_fermer_liste)
 
 def fenetre_ajouter_sportif():
     nom_var = tk.StringVar()
@@ -101,20 +101,21 @@ def fenetre_ajouter_sportif():
 #Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
     for widget in cadre3.winfo_children():
-        widget.destroy()
-    cadre3.config(width=1)
-    label_fond.configure(image=fond)
+        if widget != label_fond: # changement
+            widget.destroy()
+    label_fond.configure(image=fond) 
+
+# Fonction permettant de fermer les menus
+def fermer_menu(cadre, bouton_deroulant):# changement
+   for widget in cadre.winfo_children():
+        if widget != bouton_deroulant:
+            widget.destroy()
+   vider_cadre3()
 
 # Fonction pour l'etat du menu "fermé"
 def appel_fonction_fermer_liste():
-   menu_liste_fermer(cadre2, bouton_deroulant2)
-
-def menu_liste_fermer(cadre2, bouton_deroulant2):
-   for widget in cadre2.winfo_children():
-        if widget != bouton_deroulant2:
-            widget.destroy()
-   bouton_deroulant2.config(command=menu_liste)
-   vider_cadre3()#changement
+   fermer_menu(cadre2, global_bouton_deroulant2)
+   global_bouton_deroulant2.config(command=menu_liste)
   
 # Fonction pour afficher le menu de gauche
 def menu_resultat():
@@ -150,17 +151,11 @@ def menu_resultat():
                                    fg='black', 
                                    command=menu_resultats_disciplines)
     bouton_disciplines.pack()
-    bouton_deroulant1.config(command=appel_fonction_fermer_resultat)
+    global_bouton_deroulant1.config(command=appel_fonction_fermer_resultat)
 
-def appel_fonction_fermer_resultat():
-   menu_resultat_fermer(cadre1, bouton_deroulant1)
-
-def menu_resultat_fermer(cadre1, bouton_deroulant1):
-   for widget in cadre1.winfo_children():
-        if widget != bouton_deroulant1:
-            widget.destroy()
-   bouton_deroulant1.config(command=menu_resultat)
-   vider_cadre3()#changement
+def appel_fonction_fermer_resultat(): 
+   fermer_menu(cadre1, global_bouton_deroulant1)
+   global_bouton_deroulant1.config(command=menu_resultat)
 
 # Cadre pour le premier bouton déroulant
 cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
@@ -169,7 +164,7 @@ cadre1.pack(side="left", fill="y")
 cadre2 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre2.pack(side="right", fill="y")
 # Cadre pour l'image et pour les différentes fenetres
-cadre3 = tk.Frame(fenetre, bg='lightgray', width=20)
+cadre3 = tk.Frame(fenetre, bg='lightgray',)
 cadre3.pack(expand=False,side="top", fill="y")
 
 # Variable pour stocker la sélection
@@ -189,6 +184,8 @@ bouton_deroulant1 = tk.Button(cadre1,
                               fg ='black',
                               )
 bouton_deroulant1.pack()
+global global_bouton_deroulant1
+global_bouton_deroulant1 = bouton_deroulant1
 
 # Bouton déroulant2
 bouton_deroulant2 = tk.Button(cadre2, 
@@ -201,6 +198,8 @@ bouton_deroulant2 = tk.Button(cadre2,
                               fg ='black',
                               )
 bouton_deroulant2.pack()
+global global_bouton_deroulant2
+global_bouton_deroulant2 = bouton_deroulant2
 
 label_fond = tk.Label(cadre3, image=fond)
 label_fond.pack()
