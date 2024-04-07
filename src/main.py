@@ -130,12 +130,14 @@ def appel_fonction_fermer_liste():
 def menu_resultat():
     bouton_deroulant1.config(image=img_down)# changement
     def menu_resultats_pays():
+         vider_cadre3()#changement
          titre = "Liste des resultats par Pays"+"\n"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
          label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
          
 
     def menu_resultats_disciplines():
+        vider_cadre3()#changement
         titre = "Liste des resultats par Discipline"+"\n"
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
