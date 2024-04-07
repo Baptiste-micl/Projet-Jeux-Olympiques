@@ -19,7 +19,7 @@ listes = ["Sportifs", "Disciplines"]
 # Ici on charge les images
 fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
 pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") 
-img_up = tk.PhotoImage(file="images/up.png")    #changements
+img_up = tk.PhotoImage(file="images/up.png")  
 img_down = tk.PhotoImage(file="images/down.png")
 
 # Ici on défini une police pour toute la fenetre
@@ -27,7 +27,7 @@ police = font.Font(family="Arial", size=20)
 
 # Fonction pour afficher le menu de droite
 def menu_liste():
-    bouton_deroulant2.config(image=img_down) # changement
+    bouton_deroulant2.config(image=img_down)
     def menu_sportifs():
          vider_cadre3() 
          titre = "Liste des sportifs"+"\n"
@@ -63,10 +63,10 @@ def menu_liste():
     bouton_disciplines.pack()
     bouton_ajouter_sportif = tk.Button(cadre2, text="Ajouter un sportif", font=(police, 10), 
                     width=12,
-                    bg='lightpink', # changement
+                    bg='lightpink', 
                     fg='black', 
                     command=fenetre_ajouter_sportif,
-                    activebackground = '#ffcdc2') # changement
+                    activebackground = '#ffcdc2') 
     bouton_ajouter_sportif.pack()
     global_bouton_deroulant2.config(command=appel_fonction_fermer_liste)
 
@@ -80,7 +80,7 @@ def fenetre_ajouter_sportif():
     prenom_entry = tk.Entry(cadre3, textvariable=prenom_var, font=(police), bg='lightgray', fg='darkgreen')
     prenom_entry.pack()
     bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
-        width=20, #changements ci-dessous
+        width=20,
         bg='green', 
         fg='white', 
         activeforeground= 'black', 
@@ -89,7 +89,7 @@ def fenetre_ajouter_sportif():
         )
     bouton_ajouter_sportif.pack()
     bouton_supprimer_sportif = tk.Button(cadre3, text="Supprimer un sportif", font=(police, 12), 
-        width=20, #changements ci-dessous
+        width=20,
         bg='darkred', 
         fg='white',
         activeforeground= 'black', 
@@ -123,21 +123,21 @@ def fermer_menu(cadre, bouton_deroulant):
 # Fonction pour l'etat du menu "fermé"
 def appel_fonction_fermer_liste():
    fermer_menu(cadre2, global_bouton_deroulant2)
-   bouton_deroulant2.config(image=img_up) # changement
+   bouton_deroulant2.config(image=img_up)
    global_bouton_deroulant2.config(command=menu_liste)
   
 # Fonction pour afficher le menu de gauche
 def menu_resultat():
-    bouton_deroulant1.config(image=img_down)# changement
+    bouton_deroulant1.config(image=img_down)
     def menu_resultats_pays():
-         vider_cadre3()#changement
+         vider_cadre3()
          titre = "Liste des resultats par Pays"+"\n"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
          label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
          
 
     def menu_resultats_disciplines():
-        vider_cadre3()#changement
+        vider_cadre3()
         titre = "Liste des resultats par Discipline"+"\n"
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
@@ -163,11 +163,49 @@ def menu_resultat():
                                    fg='black', 
                                    command=menu_resultats_disciplines)
     bouton_disciplines.pack()
+    bouton_ajouter_resultat = tk.Button(cadre1, text="Ajouter un resultat", font=(police, 10), 
+                    width=12,
+                    bg='lightpink', 
+                    fg='black', 
+                    command=fenetre_ajouter_resultat,
+                    activebackground = '#ffcdc2') 
+    bouton_ajouter_resultat.pack()
     global_bouton_deroulant1.config(command=appel_fonction_fermer_resultat)
+
+def fenetre_ajouter_resultat():
+    vider_cadre3() 
+    label_fond.configure(image=pixel_gris, font=police, bg="lightgray") 
+    # On crée les variables pour stocker
+    nom_discipline_var = tk.StringVar()
+    nom_pays_var = tk.StringVar()
+    choix_medaille_var = tk.StringVar()
+    # On crée une liste pour les discipline
+    medaille = ["Or", "Argent", "Bronze"]
+    # On crée les différents boutons
+    nom_entry = tk.Entry(cadre3, textvariable=nom_discipline_var, font=(police), bg='lightgray', fg='darkgreen')
+    nom_entry.pack()
+    prenom_entry = tk.Entry(cadre3, textvariable=nom_pays_var, font=(police), bg='lightgray', fg='darkgreen')
+    prenom_entry.pack()
+    bouton_discipline = tk.OptionMenu(cadre3, choix_medaille_var, *medaille)
+    bouton_discipline.pack()
+    bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un resultat", font=(police, 12), 
+        width=20,
+        bg='green', 
+        fg='white', 
+        activeforeground= 'black', 
+        activebackground = '#b0eab6', 
+        command=lambda: recuperer_valeurs3(),
+        )
+    bouton_ajouter_sportif.pack()
+    def recuperer_valeurs3():
+       nom_discipline = nom_discipline_var.get()
+       nom_pays = nom_pays_var.get()
+       choix_medaille = choix_medaille_var.get()
+       ajouter_resultat(nom_discipline, nom_pays, choix_medaille)
 
 def appel_fonction_fermer_resultat(): 
    fermer_menu(cadre1, global_bouton_deroulant1)
-   bouton_deroulant1.config(image=img_up) # changement
+   bouton_deroulant1.config(image=img_up)
    global_bouton_deroulant1.config(command=menu_resultat)
 
 # Cadre pour le premier bouton déroulant
@@ -187,7 +225,7 @@ choix_selectionne1 = tk.StringVar()
 choix_selectionne2 = tk.StringVar()
 
 # Bouton déroulant2
-bouton_deroulant1 = tk.Button(cadre1, #changements ci-dessous
+bouton_deroulant1 = tk.Button(cadre1,
                               text="Resultats ",
                               width=110, 
                               command=menu_resultat,
@@ -203,7 +241,7 @@ global global_bouton_deroulant1
 global_bouton_deroulant1 = bouton_deroulant1
 
 # Bouton déroulant2
-bouton_deroulant2 = tk.Button(cadre2, #changements ci-dessous
+bouton_deroulant2 = tk.Button(cadre2,
                               text="Listes ",
                               width=110, 
                               command=menu_liste,
@@ -223,3 +261,4 @@ label_fond.pack()
 
 # Lancement de la boucle principale
 fenetre.mainloop()
+
