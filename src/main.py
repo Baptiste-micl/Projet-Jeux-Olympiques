@@ -176,19 +176,21 @@ def fenetre_ajouter_resultat():
     vider_cadre3() 
     label_fond.configure(image=pixel_gris, font=police, bg="lightgray") 
     # On crée les variables pour stocker
-    nom_discipline_var = tk.StringVar()
     nom_pays_var = tk.StringVar()
+    nom_discipline_var = tk.StringVar()
     choix_medaille_var = tk.StringVar()
-    # On crée une liste pour les discipline
+    # On crée les listes
+    pays = ["France", "États-Unis", "Canada", "Angleterre", "Italie"]
+    discipline = ["Athlétisme", "Argent", "Bronze"]
     medaille = ["Or", "Argent", "Bronze"]
     # On crée les différents boutons
-    nom_entry = tk.Entry(cadre3, textvariable=nom_discipline_var, font=(police), bg='lightgray', fg='darkgreen')
-    nom_entry.pack()
-    prenom_entry = tk.Entry(cadre3, textvariable=nom_pays_var, font=(police), bg='lightgray', fg='darkgreen')
-    prenom_entry.pack()
-    bouton_discipline = tk.OptionMenu(cadre3, choix_medaille_var, *medaille)
+    bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays)
+    bouton_pays.pack()
+    bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
     bouton_discipline.pack()
-    bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un resultat", font=(police, 12), 
+    bouton_medaille = tk.OptionMenu(cadre3, choix_medaille_var, *medaille)
+    bouton_medaille.pack()
+    bouton_ajouter_resultat = tk.Button(cadre3, text="Ajouter un resultat", font=(police, 12), 
         width=20,
         bg='green', 
         fg='white', 
@@ -196,12 +198,12 @@ def fenetre_ajouter_resultat():
         activebackground = '#b0eab6', 
         command=lambda: recuperer_valeurs3(),
         )
-    bouton_ajouter_sportif.pack()
+    bouton_ajouter_resultat.pack()
     def recuperer_valeurs3():
-       nom_discipline = nom_discipline_var.get()
        nom_pays = nom_pays_var.get()
+       nom_discipline = nom_discipline_var.get()
        choix_medaille = choix_medaille_var.get()
-       ajouter_resultat(nom_discipline, nom_pays, choix_medaille)
+       ajouter_resultat(nom_pays, nom_discipline, choix_medaille)
 
 def appel_fonction_fermer_resultat(): 
    fermer_menu(cadre1, global_bouton_deroulant1)
@@ -261,4 +263,3 @@ label_fond.pack()
 
 # Lancement de la boucle principale
 fenetre.mainloop()
-
