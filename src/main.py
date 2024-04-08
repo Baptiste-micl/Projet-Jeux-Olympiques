@@ -6,8 +6,8 @@ from resultats import *
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
-fenetre.geometry("900x500")
-fenetre.minsize(500, 300)
+fenetre.geometry("700x400")
+fenetre.minsize(550, 300)
 fenetre.config(background='lightgray')
 fenetre.iconbitmap("images/icone_application.ico")
 
