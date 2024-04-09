@@ -200,11 +200,29 @@ def fenetre_ajouter_resultat():
         )
     bouton_ajouter_resultat.pack()
     def recuperer_valeurs3():
-       nom_pays = nom_pays_var.get()
-       nom_discipline = nom_discipline_var.get()
-       choix_medaille = choix_medaille_var.get()
-       ajouter_resultat(nom_pays, nom_discipline, choix_medaille)
+       if nom_pays_var.get() == "France":
+           id_pays = "1"
+       elif nom_pays_var.get() == "États-unis":
+           id_pays = "2"
+       elif nom_pays_var.get() == "Canada":
+           id_pays = "3"
+       elif nom_pays_var.get() == "Angleterre":
+           id_pays = "4"
+       elif nom_pays_var.get() == "Italie":
+           id_pays = "5"
+       if nom_discipline_var.get() == "Athlétisme":
+           id_discipline = "1"
+       elif nom_discipline_var.get() == "Natation":
+           id_discipline = "2"
+       elif nom_discipline_var.get() == "Judo":
+           id_discipline = "3"
 
+       if choix_medaille_var.get() == "Or":
+           ajouter_resultat(id_pays, id_discipline, "1", "0", "0")
+       elif choix_medaille_var.get() == "Argent":
+           ajouter_resultat(id_pays, id_discipline, "0", "1", "0")
+       elif choix_medaille_var.get() == "Bronze":
+           ajouter_resultat(id_pays, id_discipline, "0", "0", "1")
 def appel_fonction_fermer_resultat(): 
    fermer_menu(cadre1, global_bouton_deroulant1)
    bouton_deroulant1.config(image=img_up)
