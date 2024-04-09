@@ -1,7 +1,7 @@
 import tkinter as tk
 from mysql.connector import connect
 
-bdd = connect(host="localhost", user="root", password="root", database="Jeux_olympiques")
+bdd = connect(host="localhost", user="root", password="auduse1306", database="Jeux_olympiques")
 
 class resultat_pays():
     cursor = bdd.cursor()
@@ -46,3 +46,10 @@ class resultat_discipline():
         )
     
 resultat_discipline = resultat_discipline()
+
+def ajouter_resultat(id_pays, id_discipline, medaille_or, medaille_argent, medaille_bronze):
+    cursor = bdd.cursor()
+    sql = "INSERT INTO Resultats(id_pays, id_discipline, medaille_or, medaille_argent, medaille_bronze) VALUES (%s, %s, %s, %s, %s)"
+    valeurs = (id_pays, id_discipline, medaille_or, medaille_argent, medaille_bronze)
+    cursor.execute(sql, (valeurs))
+    bdd.commit()
