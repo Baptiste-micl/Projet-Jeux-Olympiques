@@ -1,0 +1,110 @@
+import tkinter as tk
+from tkinter import font
+from sql_listes import *
+from sql_resultats import *
+import resultat 
+import liste
+
+
+# Fenêtre, titre et icone
+fenetre = tk.Tk()
+fenetre.title("Jeux-Olympique")
+fenetre.geometry("700x400")
+fenetre.minsize(550, 300)
+fenetre.config(background='lightgray')
+fenetre.iconbitmap("images/icone_application.ico")
+
+# Listes des resultats
+resultats = ["Pays", "Pays + Disciplines"]
+# Listes des sportifs et des disciplines
+listes = ["Sportifs", "Disciplines"]
+
+# Ici on charge les images
+fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
+pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") 
+img_up = tk.PhotoImage(file="images/up.png")  
+img_down = tk.PhotoImage(file="images/down.png")
+
+# Ici on défini une police pour toute la fenetre
+police = font.Font(family="Arial", size=20)
+
+#Fonction pour effacer le contenu du cadre central
+def vider_cadre3():
+    for widget in cadre3.winfo_children():
+        if widget != label_fond: 
+            widget.destroy()
+    label_fond.configure(image=fond) 
+
+# Fonction permettant de fermer les menus
+def fermer_menu(cadre, bouton_deroulant):
+   for widget in cadre.winfo_children():
+        if widget != bouton_deroulant:
+            widget.destroy()
+   vider_cadre3()
+
+# Fonction pour l'etat du menu "fermé"
+def appel_fonction_fermer_liste():
+   fermer_menu(cadre2, global_bouton_deroulant2)
+   bouton_deroulant2.config(image=img_up)
+   global_bouton_deroulant2.config(command=liste.menu_liste)
+
+
+def appel_fonction_fermer_resultat(): 
+   fermer_menu(cadre1, global_bouton_deroulant1)
+   bouton_deroulant1.config(image=img_up)
+   global_bouton_deroulant1.config(command=resultat.menu_resultat)
+
+# Cadre pour le premier bouton déroulant
+cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
+cadre1.pack(side="left", fill="y")
+# Cadre pour le deuxieme bouton déroulant
+cadre2 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
+cadre2.pack(side="right", fill="y")
+# Cadre pour l'image et pour les différentes fenetres
+cadre3 = tk.Frame(fenetre, bg='lightgray',)
+cadre3.pack(expand=False,side="top", fill="y")
+
+# Variable pour stocker la sélection
+choix_selectionne1 = tk.StringVar()
+
+# Variable pour stocker la sélection
+choix_selectionne2 = tk.StringVar()
+
+# Bouton déroulant2
+bouton_deroulant1 = tk.Button(cadre1,
+                              text="Resultats ",
+                              width=110, 
+                              command=lambda:
+                              resultat.menu_resultat ,
+                              cursor='hand2', 
+                              font=(police, 12), 
+                              bg='lightblue', 
+                              fg ='black',
+                              image = img_up, 
+                              compound=tk.RIGHT,
+                              )
+bouton_deroulant1.pack(fill=tk.X)
+global global_bouton_deroulant1
+global_bouton_deroulant1 = bouton_deroulant1
+
+# Bouton déroulant2
+bouton_deroulant2 = tk.Button(cadre2,
+                              text="Listes ",
+                              width=110, 
+                              command=liste.menu_liste,
+                              cursor='hand2', 
+                              font=(police, 12), 
+                              bg='lightblue', 
+                              fg ='black',
+                              image = img_up, 
+                              compound=tk.RIGHT,
+                              )
+bouton_deroulant2.pack(fill=tk.X)
+global global_bouton_deroulant2
+global_bouton_deroulant2 = bouton_deroulant2
+
+label_fond = tk.Label(cadre3, image=fond)
+label_fond.pack()
+
+# Lancement de la boucle principale
+fenetre.mainloop()
