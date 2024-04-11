@@ -30,6 +30,7 @@ def menu_liste():
     bouton_deroulant2.config(image=img_down)
     def menu_sportifs():
          vider_cadre3() 
+         #barre_defilement() # futur ajout
          titre = "Liste des sportifs"+"\n"
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
          label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
@@ -73,12 +74,25 @@ def menu_liste():
 def fenetre_ajouter_sportif():
     vider_cadre3() 
     label_fond.configure(image=pixel_gris, font=police, bg="lightgray") 
+    #changements
+    def entry_click(event):
+        if prenom_entry.get() == "Prénom" and nom_entry.get() == "Nom":
+            prenom_entry.delete(0, tk.END)
+            nom_entry.delete(0, tk.END) 
+            prenom_entry.config(fg="blue")
+            nom_entry.config(fg="blue")
+    prenom_txt = "Prénom"
+    nom_txt = "Nom"
     nom_var = tk.StringVar()
     prenom_var = tk.StringVar()
-    nom_entry = tk.Entry(cadre3, textvariable=nom_var, font=(police), bg='lightgray', fg='darkgreen')
-    nom_entry.pack()
-    prenom_entry = tk.Entry(cadre3, textvariable=prenom_var, font=(police), bg='lightgray', fg='darkgreen')
+    nom_entry = tk.Entry(cadre3, textvariable=nom_var, font=(police), bg='lightgray', fg='grey')
+    prenom_entry = tk.Entry(cadre3, textvariable=prenom_var, font=(police), bg='lightgray', fg='grey')
+    prenom_entry.insert(0, prenom_txt)
+    nom_entry.insert(0, nom_txt)
+    prenom_entry.bind("<FocusIn>", entry_click)
+    nom_entry.bind("<FocusIn>", entry_click)
     prenom_entry.pack()
+    nom_entry.pack()
     bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
         width=20,
         bg='green', 
@@ -97,21 +111,44 @@ def fenetre_ajouter_sportif():
         command=lambda: recuperer_valeurs2(),
         )
     bouton_supprimer_sportif.pack()
+    
     def recuperer_valeurs1():
        nom = nom_var.get()
        prenom = prenom_var.get()
        ajouter_sportif(nom, prenom)
+       # changements
+       nom_entry.delete(0, tk.END)
+       prenom_entry.delete(0, tk.END)
     def recuperer_valeurs2():
         nom = nom_var.get()
         prenom = prenom_var.get()
         supprimer_sportif(nom, prenom)
+        # changements
+        nom_entry.delete(0, tk.END)
+        prenom_entry.delete(0, tk.END)
     
 #Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
     for widget in cadre3.winfo_children():
         if widget != label_fond: 
             widget.destroy()
+    for widget in cadre_scrollbar.winfo_children():# changement
+        widget.destroy()
     label_fond.configure(image=fond) 
+
+# futur ajout
+'''# Fonction crétrice de la barre de défilement : scrollbar
+def barre_defilement():# changement
+    scrollbar = tk.Scrollbar(cadre_scrollbar, orient='vertical', command=action_scroll)
+    scrollbar.pack(fill = tk.Y, expand=True)
+    global global_scrollbar
+    global_scrollbar = scrollbar
+    canvas.config(yscrollcommand=scrollbar.set)
+    canvas.create_window((0, 0), window=label_fond, anchor="nw")
+# Fonction permettant de faire défiler le texte du cadre central à partir de la scrollbar
+def action_scroll(*args):
+    canvas.yview(*args)
+    #label_fond.yview(*args)'''
 
 # Fonction permettant de fermer les menus
 def fermer_menu(cadre, bouton_deroulant):
@@ -135,7 +172,6 @@ def menu_resultat():
          texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
          label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
          
-
     def menu_resultats_disciplines():
         vider_cadre3()
         titre = "Liste des resultats par Discipline"+"\n"
@@ -200,29 +236,30 @@ def fenetre_ajouter_resultat():
         )
     bouton_ajouter_resultat.pack()
     def recuperer_valeurs3():
-       if nom_pays_var.get() == "France":
+        if nom_pays_var.get() == "France":
            id_pays = "1"
-       elif nom_pays_var.get() == "États-unis":
+        elif nom_pays_var.get() == "États-unis":
            id_pays = "2"
-       elif nom_pays_var.get() == "Canada":
+        elif nom_pays_var.get() == "Canada":
            id_pays = "3"
-       elif nom_pays_var.get() == "Angleterre":
+        elif nom_pays_var.get() == "Angleterre":
            id_pays = "4"
-       elif nom_pays_var.get() == "Italie":
+        elif nom_pays_var.get() == "Italie":
            id_pays = "5"
-       if nom_discipline_var.get() == "Athlétisme":
+        if nom_discipline_var.get() == "Athlétisme":
            id_discipline = "1"
-       elif nom_discipline_var.get() == "Natation":
+        elif nom_discipline_var.get() == "Natation":
            id_discipline = "2"
-       elif nom_discipline_var.get() == "Judo":
+        elif nom_discipline_var.get() == "Judo":
            id_discipline = "3"
 
-       if choix_medaille_var.get() == "Or":
+        if choix_medaille_var.get() == "Or":
            ajouter_resultat(id_pays, id_discipline, "1", "0", "0")
-       elif choix_medaille_var.get() == "Argent":
+        elif choix_medaille_var.get() == "Argent":
            ajouter_resultat(id_pays, id_discipline, "0", "1", "0")
-       elif choix_medaille_var.get() == "Bronze":
+        elif choix_medaille_var.get() == "Bronze":
            ajouter_resultat(id_pays, id_discipline, "0", "0", "1")
+
 def appel_fonction_fermer_resultat(): 
    fermer_menu(cadre1, global_bouton_deroulant1)
    bouton_deroulant1.config(image=img_up)
@@ -234,6 +271,9 @@ cadre1.pack(side="left", fill="y")
 # Cadre pour le deuxieme bouton déroulant
 cadre2 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre2.pack(side="right", fill="y")
+# cadre de la barre de défilement 
+cadre_scrollbar = tk.Frame(fenetre, bg='lightgray', bd=0)
+cadre_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 # Cadre pour l'image et pour les différentes fenetres
 cadre3 = tk.Frame(fenetre, bg='lightgray',)
 cadre3.pack(expand=False,side="top", fill="y")
