@@ -242,6 +242,8 @@ def fenetre_ajouter_resultat():
         command=lambda: recuperer_valeurs3(),
         )
     bouton_ajouter_resultat.pack()
+    label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
+    label_avertissement.pack(pady=20) #changement
     def recuperer_valeurs3():
         if nom_pays_var.get() == "France":
            id_pays = "1"
@@ -266,6 +268,11 @@ def fenetre_ajouter_resultat():
            ajouter_resultat(id_pays, id_discipline, "0", "1", "0")
         elif choix_medaille_var.get() == "Bronze":
            ajouter_resultat(id_pays, id_discipline, "0", "0", "1")
+
+        if label_avertissement.cget("text") == "": #changement
+           label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
+        elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
+           pass
 
 def appel_fonction_fermer_resultat(): 
    fermer_menu(cadre1, global_bouton_deroulant1)
