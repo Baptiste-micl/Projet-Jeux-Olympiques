@@ -74,7 +74,6 @@ def menu_liste():
 def fenetre_ajouter_sportif():
     vider_cadre3() 
     label_fond.configure(image=pixel_gris, font=police, bg="lightgray") 
-    #changements
     def entry_click(event):
         if prenom_entry.get() == "Prénom" and nom_entry.get() == "Nom":
             prenom_entry.delete(0, tk.END)
@@ -112,20 +111,28 @@ def fenetre_ajouter_sportif():
         )
     bouton_supprimer_sportif.pack()
     
+    label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
+    label_avertissement.pack() #changement
     def recuperer_valeurs1():
        nom = nom_var.get()
        prenom = prenom_var.get()
        ajouter_sportif(nom, prenom)
-       # changements
        nom_entry.delete(0, tk.END)
        prenom_entry.delete(0, tk.END)
+       if label_avertissement.cget("text") == "": #changement
+           label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
+       elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
+           pass
     def recuperer_valeurs2():
         nom = nom_var.get()
         prenom = prenom_var.get()
         supprimer_sportif(nom, prenom)
-        # changements
         nom_entry.delete(0, tk.END)
         prenom_entry.delete(0, tk.END)
+        if label_avertissement.cget("text") == "": #changement
+            label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
+        elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
+            pass
     
 #Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
