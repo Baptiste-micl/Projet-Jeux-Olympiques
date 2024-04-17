@@ -6,7 +6,7 @@ from resultats import *
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
-fenetre.geometry("700x400")
+fenetre.geometry("720x420")
 fenetre.minsize(550, 300)
 fenetre.config(background='lightgray')
 fenetre.iconbitmap("images/icone_application.ico")
@@ -45,7 +45,7 @@ def menu_liste():
                              cursor='hand2',
                              text="Sportifs", 
                              font=(police, 12), 
-                             width=12,
+                             width=13,
                              bg='gray', 
                              fg='black', 
                              command=menu_sportifs,
@@ -56,14 +56,14 @@ def menu_liste():
                                    cursor='hand2', 
                                    text="Disciplines", 
                                    font=(police, 12),
-                                   width=12, 
+                                   width=13, 
                                    bg='gray', 
                                    activebackground = '#ACCDD8',
                                    fg='black', 
                                    command=menu_disciplines)
     bouton_disciplines.pack()
     bouton_ajouter_sportif = tk.Button(cadre2, text="Ajouter un sportif", font=(police, 10), 
-                    width=12,
+                    width=13,
                     bg='lightpink', 
                     fg='black', 
                     command=fenetre_ajouter_sportif,
@@ -112,14 +112,14 @@ def fenetre_ajouter_sportif():
     bouton_supprimer_sportif.pack()
     
     label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
-    label_avertissement.pack() #changement
+    label_avertissement.pack(pady=20) 
     def recuperer_valeurs1():
        nom = nom_var.get()
        prenom = prenom_var.get()
        ajouter_sportif(nom, prenom)
        nom_entry.delete(0, tk.END)
        prenom_entry.delete(0, tk.END)
-       if label_avertissement.cget("text") == "": #changement
+       if label_avertissement.cget("text") == "": 
            label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
        elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
            pass
@@ -129,7 +129,7 @@ def fenetre_ajouter_sportif():
         supprimer_sportif(nom, prenom)
         nom_entry.delete(0, tk.END)
         prenom_entry.delete(0, tk.END)
-        if label_avertissement.cget("text") == "": #changement
+        if label_avertissement.cget("text") == "": 
             label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
         elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
             pass
@@ -189,7 +189,7 @@ def menu_resultat():
                              cursor='hand2',
                              text="Pays", 
                              font=(police, 12), 
-                             width=12,
+                             width=13,
                              bg='gray', 
                              fg='black', 
                              command=menu_resultats_pays,
@@ -200,14 +200,14 @@ def menu_resultat():
                                    cursor='hand2', 
                                    text="Disciplines", 
                                    font=(police, 12),
-                                   width=12, 
+                                   width=13, 
                                    bg='gray', 
                                    activebackground = '#ACCDD8',
                                    fg='black', 
                                    command=menu_resultats_disciplines)
     bouton_disciplines.pack()
-    bouton_ajouter_resultat = tk.Button(cadre1, text="Ajouter un resultat", font=(police, 10), 
-                    width=12,
+    bouton_ajouter_resultat = tk.Button(cadre1, text="Ajouter un resultat", font=(police, 10),
+                    width=13,
                     bg='lightpink', 
                     fg='black', 
                     command=fenetre_ajouter_resultat,
@@ -243,7 +243,7 @@ def fenetre_ajouter_resultat():
         )
     bouton_ajouter_resultat.pack()
     label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
-    label_avertissement.pack(pady=20) #changement
+    label_avertissement.pack(pady=20) 
     def recuperer_valeurs3():
         if nom_pays_var.get() == "France":
            id_pays = "1"
@@ -268,8 +268,8 @@ def fenetre_ajouter_resultat():
            ajouter_resultat(id_pays, id_discipline, "0", "1", "0")
         elif choix_medaille_var.get() == "Bronze":
            ajouter_resultat(id_pays, id_discipline, "0", "0", "1")
-
-        if label_avertissement.cget("text") == "": #changement
+        
+        if label_avertissement.cget("text") == "": 
            label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
         elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
            pass
@@ -301,7 +301,7 @@ choix_selectionne2 = tk.StringVar()
 # Bouton déroulant2
 bouton_deroulant1 = tk.Button(cadre1,
                               text="Resultats ",
-                              width=110, 
+                              width=120, 
                               command=menu_resultat,
                               cursor='hand2', 
                               font=(police, 12), 
@@ -317,7 +317,7 @@ global_bouton_deroulant1 = bouton_deroulant1
 # Bouton déroulant2
 bouton_deroulant2 = tk.Button(cadre2,
                               text="Listes ",
-                              width=110, 
+                              width=120, 
                               command=menu_liste,
                               cursor='hand2', 
                               font=(police, 12), 
