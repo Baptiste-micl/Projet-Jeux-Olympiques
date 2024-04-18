@@ -94,7 +94,7 @@ def fenetre_ajouter_sportif():
     nom_entry.pack()
     bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
         width=20,
-        bg='green', 
+        bg='#009000', 
         fg='white', 
         activeforeground= 'black', 
         activebackground = '#b0eab6', 
@@ -103,7 +103,7 @@ def fenetre_ajouter_sportif():
     bouton_ajouter_sportif.pack()
     bouton_supprimer_sportif = tk.Button(cadre3, text="Supprimer un sportif", font=(police, 12), 
         width=20,
-        bg='darkred', 
+        bg='#CE0000', 
         fg='white',
         activeforeground= 'black', 
         activebackground = '#ffcdc2', 
@@ -220,8 +220,11 @@ def fenetre_ajouter_resultat():
     label_fond.configure(image=pixel_gris, font=police, bg="lightgray") 
     # On crée les variables pour stocker
     nom_pays_var = tk.StringVar()
+    nom_pays_var.set('Pays ') #changements
     nom_discipline_var = tk.StringVar()
+    nom_discipline_var.set('Discipline ')
     choix_medaille_var = tk.StringVar()
+    choix_medaille_var.set('Médaille ')
     # On crée les listes
     pays = ["France", "États-Unis", "Canada", "Angleterre", "Italie"]
     discipline = ["Athlétisme", "Natation", "Judo"]
@@ -273,7 +276,35 @@ def fenetre_ajouter_resultat():
            label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
         elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
            pass
+        
+    def bouton_config(bouton):
+        bouton.config(
+                bg="#0066FF",
+                fg="white",
+                activebackground="#0066FF",
+                activeforeground="white",
+                font=(police,12),
+                border=0,
+                highlightthickness=1,
+                highlightbackground='white',
+                pady=10,
+                indicatoron=0,
+                image=img_down,
+                compound=tk.RIGHT,
+                width=100,
+                height=10)
 
+        bouton['menu'].config(
+                bg="gray",
+                fg="black",
+                activebackground="white",
+                activeforeground="gray",
+                font=(police,10),
+                border=0)
+    bouton_config(bouton_pays)
+    bouton_config(bouton_discipline)
+    bouton_config(bouton_medaille)
+        
 def appel_fonction_fermer_resultat(): 
    fermer_menu(cadre1, global_bouton_deroulant1)
    bouton_deroulant1.config(image=img_up)
