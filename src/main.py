@@ -224,7 +224,7 @@ def fenetre_ajouter_resultat():
     choix_medaille_var = tk.StringVar()
     # On crée les listes
     pays = ["France", "États-Unis", "Canada", "Angleterre", "Italie"]
-    discipline = ["Athlétisme", "Argent", "Bronze"]
+    discipline = ["Athlétisme", "Natation", "Judo"]
     medaille = ["Or", "Argent", "Bronze"]
     # On crée les différents boutons
     bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays)
