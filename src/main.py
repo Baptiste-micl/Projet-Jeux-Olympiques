@@ -83,7 +83,7 @@ def menu_liste():
                                    fg='black', 
                                    command=menu_disciplines)
     bouton_disciplines.pack()
-    bouton_ajouter_sportif = tk.Button(cadre2, text="Ajouter un sportif", font=(police, 10), 
+    bouton_ajouter_sportif = tk.Button(cadre2, text="Gérer les sportifs", font=(police, 10), 
                     width=13,
                     bg='lightpink', 
                     fg='black', 
