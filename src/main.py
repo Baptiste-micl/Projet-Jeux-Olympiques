@@ -2,6 +2,11 @@ import tkinter as tk
 from tkinter import font
 from listes import *
 from resultats import *
+import customtkinter as ctk
+
+# JE SAIS PAS A QUOI CA SERT 
+ctk.set_appearance_mode("white")
+ctk.set_default_color_theme("blue")
 
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
@@ -23,23 +28,39 @@ img_up = tk.PhotoImage(file="images/up.png")
 img_down = tk.PhotoImage(file="images/down.png")
 
 # Ici on défini une police pour toute la fenetre
-police = font.Font(family="Arial", size=20)
+police = font.Font(family="Arial", size=15)
 
 # Fonction pour afficher le menu de droite
 def menu_liste():
     bouton_deroulant2.config(image=img_down)
     def menu_sportifs():
-         vider_cadre3() 
-         #barre_defilement() # futur ajout
-         titre = "Liste des sportifs"+"\n"
-         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
-         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
+        vider_cadre3() 
+        label_fond.configure(image=pixel_gris, bg="lightgray")
+        #création de la barre de défilement etc
+        cadre_scrollbar = ctk.CTkScrollableFrame(cadre3,
+                                                 label_text="Liste des sportifs",
+                                                 label_font=(police,19),
+                                                 fg_color="lightgray",
+                                                 )
+        cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH)
+        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
+        contenu = tk.Label(cadre_scrollbar, text=texte, font=police, bg="lightgray")
+        contenu.pack(expand=tk.YES, fill=tk.BOTH)
 
     def menu_disciplines():
         vider_cadre3() 
-        titre = "Liste des disciplines"+"\n"
+        label_fond.configure(image=pixel_gris, bg="lightgray")
+        #changement
+        cadre_ctk = ctk.CTkScrollableFrame(cadre3,
+                                    label_text="Liste des disciplines",
+                                    label_font=(police,19),
+                                    fg_color="lightgray",
+                                    scrollbar_button_hover_color="lightgray",
+                                    scrollbar_button_color="lightgray")
+        cadre_ctk.pack(expand=tk.YES, fill=tk.BOTH)
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
-        label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
+        contenu = tk.Label(cadre_ctk, text=texte, font=police, bg="lightgray")
+        contenu.pack(expand=tk.YES, fill=tk.BOTH)
 
     bouton_sportifs = tk.Button(cadre2,
                              cursor='hand2',
@@ -139,23 +160,7 @@ def vider_cadre3():
     for widget in cadre3.winfo_children():
         if widget != label_fond: 
             widget.destroy()
-    for widget in cadre_scrollbar.winfo_children():# changement
-        widget.destroy()
     label_fond.configure(image=fond) 
-
-# futur ajout
-'''# Fonction crétrice de la barre de défilement : scrollbar
-def barre_defilement():# changement
-    scrollbar = tk.Scrollbar(cadre_scrollbar, orient='vertical', command=action_scroll)
-    scrollbar.pack(fill = tk.Y, expand=True)
-    global global_scrollbar
-    global_scrollbar = scrollbar
-    canvas.config(yscrollcommand=scrollbar.set)
-    canvas.create_window((0, 0), window=label_fond, anchor="nw")
-# Fonction permettant de faire défiler le texte du cadre central à partir de la scrollbar
-def action_scroll(*args):
-    canvas.yview(*args)
-    #label_fond.yview(*args)'''
 
 # Fonction permettant de fermer les menus
 def fermer_menu(cadre, bouton_deroulant):
@@ -174,16 +179,34 @@ def appel_fonction_fermer_liste():
 def menu_resultat():
     bouton_deroulant1.config(image=img_down)
     def menu_resultats_pays():
-         vider_cadre3()
-         titre = "Liste des resultats par Pays"+"\n"
-         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
-         label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
+        vider_cadre3()
+        label_fond.configure(image=pixel_gris, bg="lightgray")
+        #changement
+        cadre_ctk = ctk.CTkScrollableFrame(cadre3,
+                                    label_text="Liste des résultats par pays",
+                                    label_font=(police,19),
+                                    fg_color="lightgray",
+                                    scrollbar_button_hover_color="lightgray",
+                                    scrollbar_button_color="lightgray")
+        cadre_ctk.pack(expand=tk.YES, fill=tk.BOTH)
+        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
+        contenu = tk.Label(cadre_ctk, text=texte, font=police, bg="lightgray")
+        contenu.pack(expand=tk.YES, fill=tk.BOTH)
          
     def menu_resultats_disciplines():
         vider_cadre3()
-        titre = "Liste des resultats par Discipline"+"\n"
+        label_fond.configure(image=pixel_gris, bg="lightgray")
+        #création de la barre de défilement etc
+        cadre_scrollbar = ctk.CTkScrollableFrame(cadre3,
+                                                 label_text="Liste des résultats par disciplines",
+                                                 label_font=(police,19),
+                                                 fg_color="lightgray",
+                                                 orientation="horizontal",)
+        cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH)
+        #cadre_scrollbar.bind("<MouseWheel>", lambda event: cadre_scrollbar.xview_scroll(-int(event.delta/60), "units"))
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
-        label_fond.configure(text=titre+texte, image=(), font=police, bg="lightgray")
+        contenu = tk.Label(cadre_scrollbar, text=texte, font=police, bg="lightgray")
+        contenu.pack(fill=tk.BOTH, side="top")
 
     bouton_pays = tk.Button(cadre1,
                              cursor='hand2',
@@ -292,7 +315,8 @@ def fenetre_ajouter_resultat():
                 image=img_down,
                 compound=tk.RIGHT,
                 width=100,
-                height=10)
+                height=10,
+                )
 
         bouton['menu'].config(
                 bg="gray",
@@ -321,7 +345,7 @@ cadre_scrollbar = tk.Frame(fenetre, bg='lightgray', bd=0)
 cadre_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 # Cadre pour l'image et pour les différentes fenetres
 cadre3 = tk.Frame(fenetre, bg='lightgray',)
-cadre3.pack(expand=False,side="top", fill="y")
+cadre3.pack(expand=tk.YES,side="top", fill="both")#changement
 
 # Variable pour stocker la sélection
 choix_selectionne1 = tk.StringVar()
