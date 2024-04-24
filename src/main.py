@@ -103,8 +103,14 @@ def fenetre_ajouter_sportif():
             nom_entry.config(fg="blue")
     prenom_txt = "Prénom"
     nom_txt = "Nom"
+    pays = ["France", "États-Unis", "Canada", "Angleterre", "Italie"]
+    discipline = ["Athlétisme", "Natation", "Judo"]
     nom_var = tk.StringVar()
     prenom_var = tk.StringVar()
+    nom_pays_var = tk.StringVar()
+    nom_pays_var.set('Pays ')
+    nom_discipline_var = tk.StringVar()
+    nom_discipline_var.set('Discipline ')
     nom_entry = tk.Entry(cadre3, textvariable=nom_var, font=(police), bg='lightgray', fg='grey')
     prenom_entry = tk.Entry(cadre3, textvariable=prenom_var, font=(police), bg='lightgray', fg='grey')
     prenom_entry.insert(0, prenom_txt)
@@ -113,6 +119,10 @@ def fenetre_ajouter_sportif():
     nom_entry.bind("<FocusIn>", entry_click)
     prenom_entry.pack()
     nom_entry.pack()
+    bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays)
+    bouton_pays.pack()
+    bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
+    bouton_discipline.pack()
     bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
         width=20,
         bg='#009000', 
@@ -390,3 +400,4 @@ label_fond.pack()
 
 # Lancement de la boucle principale
 fenetre.mainloop()
+
