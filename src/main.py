@@ -5,8 +5,8 @@ from resultats import *
 import customtkinter as ctk
 
 # JE SAIS PAS A QUOI CA SERT 
-ctk.set_appearance_mode("white")
-ctk.set_default_color_theme("blue")
+#ctk.set_appearance_mode("white")
+#ctk.set_default_color_theme("blue")
 
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
@@ -83,12 +83,12 @@ def menu_liste():
                                    fg='black', 
                                    command=menu_disciplines)
     bouton_disciplines.pack()
-    bouton_ajouter_sportif = tk.Button(cadre2, text="Gérer les sportifs", font=(police, 10), 
+    bouton_ajouter_sportif = tk.Button(cadre2, text="Gérer les sportifs", font=(police, 11), 
                     width=13,
                     bg='lightpink', 
                     fg='black', 
                     command=fenetre_ajouter_sportif,
-                    activebackground = '#ffcdc2') 
+                    activebackground = 'lightpink') 
     bouton_ajouter_sportif.pack()
     global_bouton_deroulant2.config(command=appel_fonction_fermer_liste)
 
@@ -99,8 +99,8 @@ def fenetre_ajouter_sportif():
         if prenom_entry.get() == "Prénom" and nom_entry.get() == "Nom":
             prenom_entry.delete(0, tk.END)
             nom_entry.delete(0, tk.END) 
-            prenom_entry.config(fg="blue")
-            nom_entry.config(fg="blue")
+            prenom_entry.config(fg="#184A73")
+            nom_entry.config(fg="#184A73")
     prenom_txt = "Prénom"
     nom_txt = "Nom"
     pays = ["France", "États-Unis", "Canada", "Angleterre", "Italie"]
@@ -125,19 +125,19 @@ def fenetre_ajouter_sportif():
     bouton_discipline.pack(pady=3)
     bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
         width=20,
-        bg='#009000', 
+        bg='#51AA3A', 
         fg='white', 
         activeforeground= 'black', 
-        activebackground = '#b0eab6', 
+        activebackground = '#51AA3A', 
         command=lambda: recuperer_valeurs1(),
         )
     bouton_ajouter_sportif.pack()
     bouton_supprimer_sportif = tk.Button(cadre3, text="Supprimer un sportif", font=(police, 12), 
         width=20,
-        bg='#CE0000', 
+        bg='#C3423D', 
         fg='white',
         activeforeground= 'black', 
-        activebackground = '#ffcdc2', 
+        activebackground = '#C3423D', 
         command=lambda: recuperer_valeurs2(),
         )
     bouton_supprimer_sportif.pack()
@@ -240,12 +240,12 @@ def menu_resultat():
                                    fg='black', 
                                    command=menu_resultats_disciplines)
     bouton_disciplines.pack()
-    bouton_ajouter_resultat = tk.Button(cadre1, text="Ajouter un resultat", font=(police, 10),
+    bouton_ajouter_resultat = tk.Button(cadre1, text="Ajouter un resultat", font=(police, 11),
                     width=13,
                     bg='lightpink', 
                     fg='black', 
                     command=fenetre_ajouter_resultat,
-                    activebackground = '#ffcdc2') 
+                    activebackground = 'lightpink') 
     bouton_ajouter_resultat.pack()
     global_bouton_deroulant1.config(command=appel_fonction_fermer_resultat)
 
@@ -272,10 +272,10 @@ def fenetre_ajouter_resultat():
     bouton_medaille.pack(pady=3)
     bouton_ajouter_resultat = tk.Button(cadre3, text="Ajouter un resultat", font=(police, 12), 
         width=20,
-        bg='green', 
+        bg='#51AA3A', 
         fg='white', 
         activeforeground= 'black', 
-        activebackground = '#b0eab6', 
+        activebackground = '#51AA3A', 
         command=lambda: recuperer_valeurs3(),
         )
     bouton_ajouter_resultat.pack()
@@ -321,9 +321,9 @@ def appel_fonction_fermer_resultat():
 
 def bouton_config(bouton):
     bouton.config(
-        bg="#0066FF",
+        bg="#184A73",
         fg="white",
-        activebackground="#0066FF",
+        activebackground="#184A73",
         activeforeground="white",
         font=(police,12),
         border=0,
@@ -338,7 +338,7 @@ def bouton_config(bouton):
 
     bouton['menu'].config(
         bg="gray",
-        fg="black",
+        fg="white",
         activebackground="white",
         activeforeground="gray",
         font=(police,10),
@@ -370,7 +370,8 @@ bouton_deroulant1 = tk.Button(cadre1,
                               command=menu_resultat,
                               cursor='hand2', 
                               font=(police, 12), 
-                              bg='lightblue', 
+                              bg='#ACCDD8', 
+                              activebackground='#ACCDD8',
                               fg ='black',
                               image = img_up, 
                               compound=tk.RIGHT,
@@ -386,7 +387,8 @@ bouton_deroulant2 = tk.Button(cadre2,
                               command=menu_liste,
                               cursor='hand2', 
                               font=(police, 12), 
-                              bg='lightblue', 
+                              bg='#ACCDD8', 
+                              activebackground='#ACCDD8',
                               fg ='black',
                               image = img_up, 
                               compound=tk.RIGHT,
