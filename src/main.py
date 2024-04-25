@@ -120,9 +120,9 @@ def fenetre_ajouter_sportif():
     prenom_entry.pack()
     nom_entry.pack()
     bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays)
-    bouton_pays.pack()
+    bouton_pays.pack(pady=3)
     bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
-    bouton_discipline.pack()
+    bouton_discipline.pack(pady=3)
     bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
         width=20,
         bg='#009000', 
@@ -141,7 +141,8 @@ def fenetre_ajouter_sportif():
         command=lambda: recuperer_valeurs2(),
         )
     bouton_supprimer_sportif.pack()
-    
+    bouton_config(bouton_pays)
+    bouton_config(bouton_discipline)
     label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
     label_avertissement.pack(pady=20) 
     def recuperer_valeurs1():
@@ -264,11 +265,11 @@ def fenetre_ajouter_resultat():
     medaille = ["Or", "Argent", "Bronze"]
     # On crée les différents boutons
     bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays)
-    bouton_pays.pack()
+    bouton_pays.pack(pady=3)
     bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
-    bouton_discipline.pack()
+    bouton_discipline.pack(pady=3)
     bouton_medaille = tk.OptionMenu(cadre3, choix_medaille_var, *medaille)
-    bouton_medaille.pack()
+    bouton_medaille.pack(pady=3)
     bouton_ajouter_resultat = tk.Button(cadre3, text="Ajouter un resultat", font=(police, 12), 
         width=20,
         bg='green', 
@@ -309,32 +310,6 @@ def fenetre_ajouter_resultat():
            label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
         elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
            pass
-        
-    def bouton_config(bouton):
-        bouton.config(
-                bg="#0066FF",
-                fg="white",
-                activebackground="#0066FF",
-                activeforeground="white",
-                font=(police,12),
-                border=0,
-                highlightthickness=1,
-                highlightbackground='white',
-                pady=10,
-                indicatoron=0,
-                image=img_down,
-                compound=tk.RIGHT,
-                width=100,
-                height=10,
-                )
-
-        bouton['menu'].config(
-                bg="gray",
-                fg="black",
-                activebackground="white",
-                activeforeground="gray",
-                font=(police,10),
-                border=0)
     bouton_config(bouton_pays)
     bouton_config(bouton_discipline)
     bouton_config(bouton_medaille)
@@ -344,6 +319,31 @@ def appel_fonction_fermer_resultat():
    bouton_deroulant1.config(image=img_up)
    global_bouton_deroulant1.config(command=menu_resultat)
 
+def bouton_config(bouton):
+    bouton.config(
+        bg="#0066FF",
+        fg="white",
+        activebackground="#0066FF",
+        activeforeground="white",
+        font=(police,12),
+        border=0,
+        pady=10,
+        highlightthickness=1,
+        highlightbackground='white',
+        indicatoron=0,
+        image=img_down,
+        compound=tk.RIGHT,
+        width=100,
+        height=10)
+
+    bouton['menu'].config(
+        bg="gray",
+        fg="black",
+        activebackground="white",
+        activeforeground="gray",
+        font=(police,10),
+        border=0)
+    
 # Cadre pour le premier bouton déroulant
 cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre1.pack(side="left", fill="y")
@@ -400,4 +400,3 @@ label_fond.pack()
 
 # Lancement de la boucle principale
 fenetre.mainloop()
-
