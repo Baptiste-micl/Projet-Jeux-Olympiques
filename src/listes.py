@@ -34,18 +34,18 @@ class liste_disciplines():
 
 liste_disciplines = liste_disciplines()
 # Ici on ajoute sportif
-def ajouter_sportif(nom_sportif, prenom_sportif):
+def ajouter_sportif(nom_sportif, prenom_sportif, id_pays, id_discipline):
     cursor = bdd.cursor()
-    sql = "INSERT INTO Sportifs(nom_sportif, prenom_sportif) VALUES (%s, %s)"
-    valeurs = (nom_sportif, prenom_sportif)
+    sql = "INSERT INTO Sportifs(nom_sportif, prenom_sportif, id_pays, id_discipline) VALUES (%s, %s, %s, %s)"
+    valeurs = (nom_sportif, prenom_sportif, id_pays, id_discipline)
     cursor.execute(sql, (valeurs))
     bdd.commit()
 
 
 # Ici on supprime un sportif
-def supprimer_sportif(nom_sportif, prenom_sportif):
+def supprimer_sportif(nom_sportif, prenom_sportif, id_pays, id_discipline):
     cursor = bdd.cursor()
-    sql = "DELETE FROM Sportifs WHERE nom_sportif = %s AND prenom_sportif = %s"
-    valeurs = (nom_sportif, prenom_sportif)
+    sql = "DELETE FROM Sportifs WHERE nom_sportif = %s AND prenom_sportif = %s AND id_pays = %s AND id_discipline = %s"
+    valeurs = (nom_sportif, prenom_sportif, id_pays, id_discipline)
     cursor.execute(sql, (valeurs))
     bdd.commit()
