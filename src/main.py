@@ -148,7 +148,18 @@ def fenetre_ajouter_sportif():
     def recuperer_valeurs1():
        nom = nom_var.get()
        prenom = prenom_var.get()
-       ajouter_sportif(nom, prenom)
+       ## utilisation des match-case a la place des if et else...
+       id_pays = {
+        "France": "1",
+        "États-unis": "2",
+        "Canada": "3",
+        "Angleterre": "4",
+        "Italie": "5",}.get(nom_pays_var.get())
+       id_discipline = {
+        "Athlétisme": "1",
+        "Natation": "2",
+        "Judo": "3",}.get(nom_discipline_var.get())
+       ajouter_sportif(nom, prenom, id_pays, id_discipline)
        nom_entry.delete(0, tk.END)
        prenom_entry.delete(0, tk.END)
        if label_avertissement.cget("text") == "": 
@@ -158,7 +169,17 @@ def fenetre_ajouter_sportif():
     def recuperer_valeurs2():
         nom = nom_var.get()
         prenom = prenom_var.get()
-        supprimer_sportif(nom, prenom)
+        id_pays = {
+        "France": "1",
+        "États-unis": "2",
+        "Canada": "3",
+        "Angleterre": "4",
+        "Italie": "5",}.get(nom_pays_var.get())
+        id_discipline = {
+        "Athlétisme": "1",
+        "Natation": "2",
+        "Judo": "3",}.get(nom_discipline_var.get())
+        supprimer_sportif(nom, prenom, id_pays, id_discipline)
         nom_entry.delete(0, tk.END)
         prenom_entry.delete(0, tk.END)
         if label_avertissement.cget("text") == "": 
@@ -282,23 +303,16 @@ def fenetre_ajouter_resultat():
     label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
     label_avertissement.pack(pady=20) 
     def recuperer_valeurs3():
-        if nom_pays_var.get() == "France":
-           id_pays = "1"
-        elif nom_pays_var.get() == "États-unis":
-           id_pays = "2"
-        elif nom_pays_var.get() == "Canada":
-           id_pays = "3"
-        elif nom_pays_var.get() == "Angleterre":
-           id_pays = "4"
-        elif nom_pays_var.get() == "Italie":
-           id_pays = "5"
-        if nom_discipline_var.get() == "Athlétisme":
-           id_discipline = "1"
-        elif nom_discipline_var.get() == "Natation":
-           id_discipline = "2"
-        elif nom_discipline_var.get() == "Judo":
-           id_discipline = "3"
-
+        id_pays = {
+        "France": "1",
+        "États-unis": "2",
+        "Canada": "3",
+        "Angleterre": "4",
+        "Italie": "5",}.get(nom_pays_var.get())
+        id_discipline = {
+        "Athlétisme": "1",
+        "Natation": "2",
+        "Judo": "3",}.get(nom_discipline_var.get())
         if choix_medaille_var.get() == "Or":
            ajouter_resultat(id_pays, id_discipline, "1", "0", "0")
         elif choix_medaille_var.get() == "Argent":
