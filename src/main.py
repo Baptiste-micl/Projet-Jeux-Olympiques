@@ -4,17 +4,13 @@ from listes import *
 from resultats import *
 import customtkinter as ctk
 
-# JE SAIS PAS A QUOI CA SERT 
-#ctk.set_appearance_mode("white")
-#ctk.set_default_color_theme("blue")
-
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
 fenetre.geometry("720x420")
 fenetre.minsize(550, 300)
 fenetre.config(background='lightgray')
-fenetre.iconbitmap("images/icone_application.ico")
+fenetre.iconbitmap("images/logo-jo.ico")
 
 # Listes des resultats
 resultats = ["Pays", "Pays + Disciplines"]
@@ -26,6 +22,15 @@ fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
 pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") 
 img_up = tk.PhotoImage(file="images/up.png")  
 img_down = tk.PhotoImage(file="images/down.png")
+gb = tk.PhotoImage(file="images/gb.png")
+fr = tk.PhotoImage(file="images/fr.png")
+us = tk.PhotoImage(file="images/us.png")
+it = tk.PhotoImage(file="images/it.png")
+ca = tk.PhotoImage(file="images/ca.png")
+gold = tk.PhotoImage(file="images/gold.png")
+silver = tk.PhotoImage(file="images/silver.png")
+bronze = tk.PhotoImage(file="images/bronze.png")
+
 
 # Ici on défini une police pour toute la fenetre
 police = font.Font(family="Arial", size=15)
@@ -235,7 +240,6 @@ def menu_resultat():
                                                  fg_color="lightgray",
                                                  orientation="horizontal",)
         cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH)
-        #cadre_scrollbar.bind("<MouseWheel>", lambda event: cadre_scrollbar.xview_scroll(-int(event.delta/60), "units"))
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
         contenu = tk.Label(cadre_scrollbar, text=texte, font=police, bg="lightgray")
         contenu.pack(fill=tk.BOTH, side="top")
