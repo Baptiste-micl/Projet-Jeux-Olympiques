@@ -4,13 +4,17 @@ from listes import *
 from resultats import *
 import customtkinter as ctk
 
+# JE SAIS PAS A QUOI CA SERT 
+#ctk.set_appearance_mode("white")
+#ctk.set_default_color_theme("blue")
+
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
 fenetre.geometry("720x420")
 fenetre.minsize(550, 300)
 fenetre.config(background='lightgray')
-fenetre.iconbitmap("images/logo-jo.ico")
+fenetre.iconbitmap("images/icone_application.ico")
 
 # Listes des resultats
 resultats = ["Pays", "Pays + Disciplines"]
@@ -22,15 +26,6 @@ fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
 pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") 
 img_up = tk.PhotoImage(file="images/up.png")  
 img_down = tk.PhotoImage(file="images/down.png")
-gb = tk.PhotoImage(file="images/gb.png")
-fr = tk.PhotoImage(file="images/fr.png")
-us = tk.PhotoImage(file="images/us.png")
-it = tk.PhotoImage(file="images/it.png")
-ca = tk.PhotoImage(file="images/ca.png")
-gold = tk.PhotoImage(file="images/gold.png")
-silver = tk.PhotoImage(file="images/silver.png")
-bronze = tk.PhotoImage(file="images/bronze.png")
-
 
 # Ici on défini une police pour toute la fenetre
 police = font.Font(family="Arial", size=15)
@@ -150,47 +145,66 @@ def fenetre_ajouter_sportif():
     bouton_config(bouton_discipline)
     label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
     label_avertissement.pack(pady=20) 
+
     def recuperer_valeurs1():
-       nom = nom_var.get()
-       prenom = prenom_var.get()
-       ## utilisation des match-case a la place des if et else...
-       id_pays = {
-        "France": "1",
-        "États-unis": "2",
-        "Canada": "3",
-        "Angleterre": "4",
-        "Italie": "5",}.get(nom_pays_var.get())
-       id_discipline = {
-        "Athlétisme": "1",
-        "Natation": "2",
-        "Judo": "3",}.get(nom_discipline_var.get())
-       ajouter_sportif(nom, prenom, id_pays, id_discipline)
-       nom_entry.delete(0, tk.END)
-       prenom_entry.delete(0, tk.END)
-       if label_avertissement.cget("text") == "": 
-           label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
-       elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
-           pass
+     champs = (nom_var.get(), prenom_var.get(), nom_pays_var.get(), nom_discipline_var.get())
+     if all(champs):  # Vérifie si tous les champs sont non-vides
+         try:
+             id_pays = {
+                 "France": "1",
+                 "États-unis": "2",
+                 "Canada": "3",
+                 "Angleterre": "4",
+                 "Italie": "5",
+             }.get(nom_pays_var.get())
+             if id_pays is None:
+                 raise ValueError("Pays non trouvé")
+             id_discipline = {
+                 "Athlétisme": "1",
+                 "Natation": "2",
+                 "Judo": "3",
+             }.get(nom_discipline_var.get())
+             if id_discipline is None:
+                 raise ValueError("Discipline non trouvée")
+             ajouter_sportif(nom_var.get(), prenom_var.get(), id_pays, id_discipline)
+
+             nom_entry.delete(0, tk.END)
+             prenom_entry.delete(0, tk.END)
+             label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg="green")
+         except ValueError as e:
+             label_avertissement.config(text="Tout les champs doivent etre remplis", bg='red')
+     else:
+         label_avertissement.config(text="Tout les champs doivent etre remplis", bg='white')
+   
     def recuperer_valeurs2():
-        nom = nom_var.get()
-        prenom = prenom_var.get()
-        id_pays = {
-        "France": "1",
-        "États-unis": "2",
-        "Canada": "3",
-        "Angleterre": "4",
-        "Italie": "5",}.get(nom_pays_var.get())
-        id_discipline = {
-        "Athlétisme": "1",
-        "Natation": "2",
-        "Judo": "3",}.get(nom_discipline_var.get())
-        supprimer_sportif(nom, prenom, id_pays, id_discipline)
-        nom_entry.delete(0, tk.END)
-        prenom_entry.delete(0, tk.END)
-        if label_avertissement.cget("text") == "": 
-            label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
-        elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
-            pass
+     champs = (nom_var.get(), prenom_var.get(), nom_pays_var.get(), nom_discipline_var.get())
+     if all(champs):  # Vérifie si tous les champs sont non-vides
+         try:
+             id_pays = {
+                 "France": "1",
+                 "États-unis": "2",
+                 "Canada": "3",
+                 "Angleterre": "4",
+                 "Italie": "5",
+             }.get(nom_pays_var.get())
+             if id_pays is None:
+                 raise ValueError("Pays non trouvé")
+             id_discipline = {
+                 "Athlétisme": "1",
+                 "Natation": "2",
+                 "Judo": "3",
+             }.get(nom_discipline_var.get())
+             if id_discipline is None:
+                 raise ValueError("Discipline non trouvée")
+             supprimer_sportif(nom_var.get(), prenom_var.get(), id_pays, id_discipline)
+
+             nom_entry.delete(0, tk.END)
+             prenom_entry.delete(0, tk.END)
+             label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg="green")
+         except ValueError as e:
+             label_avertissement.config(text="Tout les champs doivent etre remplis", bg='red')
+     else:
+         label_avertissement.config(text="Tout les champs doivent etre remplis", bg='white')
     
 #Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
@@ -240,6 +254,7 @@ def menu_resultat():
                                                  fg_color="lightgray",
                                                  orientation="horizontal",)
         cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH)
+        #cadre_scrollbar.bind("<MouseWheel>", lambda event: cadre_scrollbar.xview_scroll(-int(event.delta/60), "units"))
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
         contenu = tk.Label(cadre_scrollbar, text=texte, font=police, bg="lightgray")
         contenu.pack(fill=tk.BOTH, side="top")
