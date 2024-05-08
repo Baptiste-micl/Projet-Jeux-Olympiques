@@ -203,15 +203,13 @@ def fenetre_ajouter_sportif():
             label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
         elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
             pass
-    
+  
 #Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
-    cadre3.config(bg='white')
     for widget in cadre3.winfo_children():
         if widget != label_fond: 
             widget.destroy()
-    label_fond.configure(image=fond)
-    cadre3.config(bg='white') # problème
+    label_fond.configure(image=fond) 
 
 # Fonction permettant de fermer les menus
 def fermer_menu(cadre, bouton_deroulant):
