@@ -305,10 +305,10 @@ def fenetre_ajouter_resultat():
     discipline = ["Athlétisme", "Natation", "Judo"]
     medaille = ["Or", "Argent", "Bronze"]
     # On crée les différents boutons
+    bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
+    bouton_discipline.pack(pady=3) # changement de l'ordre
     bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays)
     bouton_pays.pack(pady=3)
-    bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
-    bouton_discipline.pack(pady=3)
     bouton_medaille = tk.OptionMenu(cadre3, choix_medaille_var, *medaille)
     bouton_medaille.pack(pady=3)
     bouton_ajouter_resultat = tk.Button(cadre3, text="Ajouter un resultat", font=(police, 12), 
@@ -322,28 +322,40 @@ def fenetre_ajouter_resultat():
     bouton_ajouter_resultat.pack()
     label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
     label_avertissement.pack(pady=20) 
-    def recuperer_valeurs3():
-        id_pays = {
-        "France": "1",
-        "États-unis": "2",
-        "Canada": "3",
-        "Angleterre": "4",
-        "Italie": "5",}.get(nom_pays_var.get())
-        id_discipline = {
-        "Athlétisme": "1",
-        "Natation": "2",
-        "Judo": "3",}.get(nom_discipline_var.get())
-        if choix_medaille_var.get() == "Or":
-           ajouter_resultat(id_pays, id_discipline, "1", "0", "0")
-        elif choix_medaille_var.get() == "Argent":
-           ajouter_resultat(id_pays, id_discipline, "0", "1", "0")
-        elif choix_medaille_var.get() == "Bronze":
-           ajouter_resultat(id_pays, id_discipline, "0", "0", "1")
-        
-        if label_avertissement.cget("text") == "": 
-           label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
-        elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
-           pass
+    def recuperer_valeurs3(): # changements
+        label_avertissement.config(text="", bg="lightgray")
+        champs = (choix_medaille_var.get(), nom_pays_var.get(), nom_discipline_var.get())
+        if all(champs): # Vérifie si tous les champs sont non-vides 
+            try:
+                id_pays = {
+                    "France": "1",
+                    "États-unis": "2",
+                    "Canada": "3",
+                    "Angleterre": "4",
+                    "Italie": "5",
+                }.get(nom_pays_var.get())
+                if id_pays is None: 
+                    raise ValueError("Pays non trouvé") # si on l'utilise pas autant le supprimer ?
+                id_discipline = {
+                    "Athlétisme": "1",
+                    "Natation": "2",
+                    "Judo": "3",
+                }.get(nom_discipline_var.get())
+                if id_discipline is None:
+                    raise ValueError("Discipline non trouvée")
+                if choix_medaille_var.get() == "Or":
+                    ajouter_resultat(id_pays, id_discipline, "1", "0", "0")
+                elif choix_medaille_var.get() == "Argent":
+                    ajouter_resultat(id_pays, id_discipline, "0", "1", "0")
+                elif choix_medaille_var.get() == "Bronze":
+                    ajouter_resultat(id_pays, id_discipline, "0", "0", "1")
+                else:
+                    raise ValueError("Médaille non trouvée") # si on l'utilise pas autant le supprimer ?
+                label_avertissement.config(text="Veuillez fermer la fenêtre, puis relancer l'application pour mettre à jour la base de données.", bg="white")
+            except ValueError as e:
+                label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
+        else:
+            label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
     bouton_config(bouton_pays)
     bouton_config(bouton_discipline)
     bouton_config(bouton_medaille)
