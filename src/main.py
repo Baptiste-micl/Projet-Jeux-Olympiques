@@ -47,9 +47,29 @@ def menu_liste():
                                                  fg_color="lightgray",
                                                  )
         cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH)
-        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_sportifs.dico_sportifs.items())
-        contenu = tk.Label(cadre_scrollbar, text=texte, font=police, bg="lightgray")
-        contenu.pack(expand=tk.YES, fill=tk.BOTH)
+        for pays, valeur in liste_sportifs.dico_sportifs.items():
+            if pays == 1:
+                img = fr
+            elif pays == 2:
+                img = us
+            elif pays == 3:
+                img = ca
+            elif pays == 4:
+                img = gb
+            elif pays == 5:
+                img = it
+            
+            for i in valeur:
+                prenom_sportif = i[0]
+                nom_sportif = i[1]
+                sportif = f"{prenom_sportif} : {nom_sportif}"
+                
+                cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray")  # Création d'un cadre pour chaque paire de labels
+                cadre_label.pack(fill=tk.X)
+                contenu_txt = tk.Label(cadre_label, text=sportif, font=police, bg="lightgray")
+                contenu_txt.pack(side=tk.LEFT)
+                contenu_img = tk.Label(cadre_label, image=img, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
 
     def menu_disciplines():
         vider_cadre3() 
