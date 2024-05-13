@@ -65,11 +65,14 @@ def menu_liste():
                 sportif = f"{prenom_sportif} : {nom_sportif}"
                 
                 cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray")  # Création d'un cadre pour chaque paire de labels
-                cadre_label.pack(fill=tk.X)
+                cadre_label.pack(fill=tk.BOTH, expand=tk.YES, side=tk.TOP)
+                underscore = "___________________________________________________________________________________________________"
+                ligne = tk.Label(cadre_label, text=underscore, font=police, bg="lightgray")
+                ligne.pack()
                 contenu_txt = tk.Label(cadre_label, text=sportif, font=police, bg="lightgray")
                 contenu_txt.pack(side=tk.LEFT)
                 contenu_img = tk.Label(cadre_label, image=img, font=police, bg="lightgray")
-                contenu_img.pack(side=tk.LEFT)
+                contenu_img.pack(side=tk.RIGHT)
 
     def menu_disciplines():
         vider_cadre3() 
