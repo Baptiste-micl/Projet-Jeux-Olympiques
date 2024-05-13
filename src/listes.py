@@ -31,8 +31,8 @@ class liste_disciplines():
         # Ajout des valeurs au dictionnaire avec les clés "nom_discipline" et "description_discipline"
         dico_disciplines[nom_discipline] = description_discipline
 
+liste_disciplines = liste_disciplines() # ne sert à rien ?
 
-liste_disciplines = liste_disciplines()
 # Ici on ajoute sportif
 def ajouter_sportif(nom_sportif, prenom_sportif, id_pays, id_discipline):
     cursor = bdd.cursor()
