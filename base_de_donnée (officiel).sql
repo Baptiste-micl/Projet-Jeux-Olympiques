@@ -83,7 +83,13 @@ VALUES (1,'Mayer', 'Kevin', '1992-02-10', 1, 1),
        (7,'Peaty', 'Adam', '1994-12-28', 4, 2),
        (8,'Clark', 'Sarah', '1978-01-03', 4, 3),
        (9,'Ceccon', 'Thomas', '2001-01-27', 5, 2),
-       (10,'Basile', 'Fabio', '1994-09-07', 5, 3);
+       (10,'Basile', 'Fabio', '1994-09-07', 5, 3),
+        (11, 'Spitz', 'Mark', '1950-02-10',2,2),
+        (12, 'Lewis', 'Carl', '1961-07-01',2,1),
+        (13, 'Thompson', 'Jenny', '1973-02-26',2,2),
+        (14, 'Biondi', 'Matt', '1965-10-08',2,2),
+        (15, 'Taylor', 'Henry', '1885-03-17',4,2),
+        ;
 
 
 -- Insertion pour les resultats
