@@ -66,8 +66,8 @@ def menu_liste():
                 
                 cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray")  # Création d'un cadre pour chaque paire de labels
                 cadre_label.pack(fill=tk.BOTH, expand=tk.YES, side=tk.TOP)
-                underscore = "___________________________________________________________________________________________________"
-                ligne = tk.Label(cadre_label, text=underscore, font=police, bg="lightgray")
+                underscore = "______________________________________________________________________________________________________________________"
+                ligne = tk.Label(cadre_label, text=underscore, font=(police,12), bg="lightgray")
                 ligne.pack()
                 contenu_txt = tk.Label(cadre_label, text=sportif, font=police, bg="lightgray")
                 contenu_txt.pack(side=tk.LEFT)
