@@ -27,9 +27,9 @@ fr = tk.PhotoImage(file="images/fr.png")
 us = tk.PhotoImage(file="images/us.png")
 it = tk.PhotoImage(file="images/it.png")
 ca = tk.PhotoImage(file="images/ca.png")
-gold = tk.PhotoImage(file="images/gold.png")
-silver = tk.PhotoImage(file="images/silver.png")
-bronze = tk.PhotoImage(file="images/bronze.png")
+img_gold = tk.PhotoImage(file="images/gold.png")
+img_silver = tk.PhotoImage(file="images/silver.png")
+img_bronze = tk.PhotoImage(file="images/bronze.png")
 
 # Ici on définit une police pour toute la fenetre
 police = font.Font(family="Arial", size=15)
@@ -66,14 +66,13 @@ def menu_liste():
                 
                 cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray")  # Création d'un cadre pour chaque paire de labels
                 cadre_label.pack(fill=tk.BOTH, expand=tk.YES, side=tk.TOP)
-                underscore = "______________________________________________________________________________________________________________________"
-                ligne = tk.Label(cadre_label, text=underscore, font=(police,12), bg="lightgray")
+                underscore = "___________________________________________________________________________________________________________________"
+                ligne = tk.Label(cadre_label, text=underscore, font=(police, 12), bg="lightgray")
                 ligne.pack()
-                contenu_txt = tk.Label(cadre_label, text=sportif, font=police, bg="lightgray")
+                contenu_txt = tk.Label(cadre_label, text=sportif, font=police, bg="lightgray")#cadre_scrollbar
                 contenu_txt.pack(side=tk.LEFT)
                 contenu_img = tk.Label(cadre_label, image=img, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.RIGHT)
-
     def menu_disciplines():
         vider_cadre3() 
         label_fond.configure(image=pixel_gris, bg="lightgray")
@@ -208,7 +207,7 @@ def fenetre_ajouter_sportif():
                 label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
         else:
             label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
-    def recuperer_valeurs2():
+    def recuperer_valeurs2(): 
         nom = nom_var.get()
         prenom = prenom_var.get()
         supprimer_sportif(nom, prenom)
@@ -252,9 +251,42 @@ def menu_resultat():
                                     scrollbar_button_hover_color="lightgray",
                                     scrollbar_button_color="lightgray")
         cadre_ctk.pack(expand=tk.YES, fill=tk.BOTH)
-        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_pays.dico_resultat_pays.items())
-        contenu = tk.Label(cadre_ctk, text=texte, font=police, bg="lightgray")
-        contenu.pack(expand=tk.YES, fill=tk.BOTH)
+        for pays, resultat in resultat_pays.dico_resultat_pays.items():
+            if pays == "France":
+                img = fr
+            elif pays == "États-Unis":
+                img = us
+            elif pays == "Canada":
+                img = ca
+            elif pays == "Angleterre":
+                img = gb
+            elif pays == "Italie":
+                img = it
+            
+            for medaille in resultat:
+                gold = medaille[0]
+                silver = medaille[1]
+                bronze = medaille[2]
+                affichage1 = f"{pays} : {gold}"
+                cadre_label = tk.Frame(cadre_ctk, bg="lightgray")  # Création d'un cadre pour chaque paire de labels
+                cadre_label.pack(fill=tk.BOTH, expand=tk.YES, side=tk.TOP)
+                underscore = "___________________________________________________________________________________________________________________"
+                ligne = tk.Label(cadre_label, text=underscore, font=(police, 12), bg="lightgray")
+                ligne.pack(expand=tk.YES)
+                contenu_img = tk.Label(cadre_label, image=img, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
+                contenu_txt = tk.Label(cadre_label, text=affichage1, font=police, bg="lightgray")#cadre_scrollbar
+                contenu_txt.pack(side=tk.LEFT)
+                contenu_img = tk.Label(cadre_label, image=img_gold, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
+                contenu_txt = tk.Label(cadre_label, text=silver, font=police, bg="lightgray")#cadre_scrollbar
+                contenu_txt.pack(side=tk.LEFT)
+                contenu_img = tk.Label(cadre_label, image=img_silver, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
+                contenu_txt = tk.Label(cadre_label, text=bronze, font=police, bg="lightgray")#cadre_scrollbar
+                contenu_txt.pack(side=tk.LEFT)
+                contenu_img = tk.Label(cadre_label, image=img_bronze, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
          
     def menu_resultats_disciplines():
         vider_cadre3()
@@ -264,16 +296,46 @@ def menu_resultat():
                                                  label_text="Liste des résultats par disciplines",
                                                  label_font=(police,19),
                                                  fg_color="lightgray",
-                                                 orientation="horizontal",)
-        cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH)
-        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in resultat_discipline.dico_resultat_disciplines.items())
-        contenu = tk.Label(cadre_scrollbar, text=texte, font=police, bg="lightgray")
-        contenu.pack(fill=tk.BOTH, side="top")
-        '''contenu = tk.Canvas(cadre_scrollbar, bg="lightgray")
-        contenu.pack(fill=tk.BOTH, side="top")
-        contenu.create_image(5,5,image=gold,anchor=tk.NW)
-        contenu.create_text(100,100,text=texte,font=(police,12))'''
-        # faire une boucle for avec pleins de petits canvas
+                                                 orientation="vertical")
+        cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH, side =tk.TOP)
+        for discipline, valeur in resultat_discipline.dico_resultat_disciplines.items():
+            affichage_discipline = tk.Label(cadre_scrollbar, text=discipline, font=(police,18), bg="lightgray")
+            affichage_discipline.pack(side=tk.TOP)
+            for i in valeur:
+                pays = i[0]
+                if pays == "France":
+                    img = fr
+                elif pays == "États-Unis":
+                    img = us
+                elif pays == "Canada":
+                    img = ca
+                elif pays == "Angleterre":
+                    img = gb
+                elif pays == "Italie":
+                    img = it
+                gold = i[1]
+                silver = i[2]
+                bronze = i[3]
+                affichage1 = f"{pays} : {gold}"
+                cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray")  # Création d'un cadre pour chaque paire de labels
+                cadre_label.pack(side=tk.TOP, expand=tk.YES) 
+                underscore = "_______________________________________________________________________________________________________________"
+                ligne = tk.Label(cadre_scrollbar, text=underscore, font=(police, 12), bg="lightgray")
+                ligne.pack(expand=tk.YES)
+                contenu_img = tk.Label(cadre_label, image=img, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
+                contenu_txt = tk.Label(cadre_label, text=affichage1, font=police, bg="lightgray")
+                contenu_txt.pack(side=tk.LEFT)
+                contenu_img = tk.Label(cadre_label, image=img_gold, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
+                contenu_txt = tk.Label(cadre_label, text=silver, font=police, bg="lightgray")#cadre_scrollbar
+                contenu_txt.pack(side=tk.LEFT)
+                contenu_img = tk.Label(cadre_label, image=img_silver, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
+                contenu_txt = tk.Label(cadre_label, text=bronze, font=police, bg="lightgray")#cadre_scrollbar
+                contenu_txt.pack(side=tk.LEFT)
+                contenu_img = tk.Label(cadre_label, image=img_bronze, font=police, bg="lightgray")
+                contenu_img.pack(side=tk.LEFT)
 
     bouton_pays = tk.Button(cadre1,
                              cursor='hand2',
