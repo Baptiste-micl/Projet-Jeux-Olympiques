@@ -208,18 +208,10 @@ def fenetre_ajouter_sportif():
                 label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
         else:
             label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
-    def recuperer_valeurs2(): # NE FONCTIONNE PLUS
+    def recuperer_valeurs2():
         nom = nom_var.get()
         prenom = prenom_var.get()
-        id_pays = {"France": "1",
-                    "États-unis": "2",
-                    "Canada": "3",
-                    "Angleterre": "4",
-                    "Italie": "5",}.get(nom_pays_var.get())
-        id_discipline = {"Athlétisme": "1",
-                    "Natation": "2",
-                    "Judo": "3",}.get(nom_discipline_var.get())
-        supprimer_sportif(nom, prenom, id_pays, id_discipline)
+        supprimer_sportif(nom, prenom)
         nom_entry.delete(0, tk.END)
         prenom_entry.delete(0, tk.END)
         if label_avertissement.cget("text") == "": 
