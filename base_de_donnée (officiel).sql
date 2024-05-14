@@ -68,9 +68,9 @@ VALUES (1,'France', '[Image du drapeau français: URL non valide]'),
 
 -- Insertion pour les disciplines
 INSERT INTO Disciplines 
-VALUES (1,'Athlétisme', 'Course, saut, lancer'),
-       (2,'Natation', 'Crawl, dos, papillon...'),
-       (3,'Judo', 'un jeu de bagarre');
+VALUES (1,'Athlétisme', 'L’athlétisme est un ensemble d’épreuves sportives codifiées comprenant les courses, sauts, lancers, épreuves combinées et marche.'),
+       (2,'Natation', 'La natation, cest-à-dire l action de nager (Écouter), désigne les méthodes qui permettent aux êtres humains de se mouvoir dans l eau sans aucune autre force propulsive que leur propre énergie corporelle.'),
+       (3,'Judo', 'Le judo est un art martial, créé au Japon en 1882 par Jigorō Kanō en tant que pédagogie physique, mentale et morale.');
 
 -- Insertion pour les sportifs
 INSERT INTO Sportifs 
