@@ -1,7 +1,7 @@
 import tkinter as tk
 from mysql.connector import connect
 
-bdd = connect(host="localhost", user="root", password="root", database="Jeux_olympiques")
+bdd = connect(host="localhost", user="root", password="auduse1306", database="Jeux_olympiques")
 
 class liste_sportifs():
     cursor = bdd.cursor()
@@ -41,9 +41,9 @@ def ajouter_sportif(nom_sportif, prenom_sportif, id_pays, id_discipline):
 
 
 # Ici on supprime un sportif
-def supprimer_sportif(nom_sportif, prenom_sportif, id_pays, id_discipline):
+def supprimer_sportif(nom_sportif, prenom_sportif):
     cursor = bdd.cursor()
-    sql = "DELETE FROM Sportifs WHERE nom_sportif = %s AND prenom_sportif = %s AND id_pays = %s AND id_discipline = %s"
-    valeurs = (nom_sportif, prenom_sportif, id_pays, id_discipline)
+    sql = "DELETE FROM Sportifs WHERE nom_sportif = %s AND prenom_sportif = %s"
+    valeurs = (nom_sportif, prenom_sportif)
     cursor.execute(sql, (valeurs))
     bdd.commit()
