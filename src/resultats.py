@@ -1,7 +1,6 @@
-import tkinter as tk
 from mysql.connector import connect
 
-bdd = connect(host="localhost", user="root", password="auduse1306", database="Jeux_olympiques")
+bdd = connect(host="localhost", user="root", password="root", database="Jeux_olympiques")
 
 class resultat_pays():
     cursor = bdd.cursor()
@@ -21,9 +20,7 @@ class resultat_pays():
     for resultat_pays in resultat:
         Pays, Or, Argent, Bronze = resultat_pays
         # Ajout des valeurs au dictionnaire avec les clés 
-        dico_resultat_pays[Pays] = Or, Argent, Bronze
-
-resultat_pays = resultat_pays()
+        dico_resultat_pays.setdefault(Pays, []).append((Or, Argent, Bronze))
 
 class resultat_discipline():
     cursor = bdd.cursor()
@@ -48,8 +45,6 @@ class resultat_discipline():
         dico_resultat_disciplines.setdefault(Discipline, []).append(
             (Pays, Or, Argent, Bronze)
         )
-    
-resultat_discipline = resultat_discipline()
 
 def ajouter_resultat(id_pays, id_discipline, medaille_or, medaille_argent, medaille_bronze):
     cursor = bdd.cursor()
