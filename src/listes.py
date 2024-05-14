@@ -5,16 +5,15 @@ bdd = connect(host="localhost", user="root", password="root", database="Jeux_oly
 
 class liste_sportifs():
     cursor = bdd.cursor()
-    cursor.execute("SELECT nom_sportif, prenom_sportif FROM Sportifs")
+    cursor.execute("SELECT nom_sportif, prenom_sportif, id_pays FROM Sportifs")
     resultat = cursor.fetchall()
 
     # Création d'un dictionnaire vide
     dico_sportifs = {}
 
     for sportifs in resultat:
-        nom, prenom = sportifs
-        # Ajout des valeurs au dictionnaire avec les clés "nom" et "prenom"
-        dico_sportifs[nom] = prenom
+        nom, prenom, pays = sportifs
+        dico_sportifs.setdefault(pays, []).append((prenom, nom)) # changements
 
 liste_sportifs = liste_sportifs()
 
@@ -32,7 +31,6 @@ class liste_disciplines():
         dico_disciplines[nom_discipline] = description_discipline
 
 liste_disciplines = liste_disciplines() # ne sert à rien ?
-
 # Ici on ajoute sportif
 def ajouter_sportif(nom_sportif, prenom_sportif, id_pays, id_discipline):
     cursor = bdd.cursor()
