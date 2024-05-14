@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import font
 from listes import *
 from resultats import *
-import customtkinter as ctk
+import customtkinter as ctk # module permettant de faire des cadres avec une barre de défilement
 
 # Fenêtre, titre et icone
 fenetre = tk.Tk()
@@ -12,21 +12,25 @@ fenetre.minsize(550, 300)
 fenetre.config(background='lightgray')
 fenetre.iconbitmap("images/logo-jo.ico")
 
-# Listes des resultats
+# ne sert à rien ? :
+'''# Listes des resultats
 resultats = ["Pays", "Pays + Disciplines"]
 # Listes des sportifs et des disciplines
-listes = ["Sportifs", "Disciplines"]
+listes = ["Sportifs", "Disciplines"]'''
 
 # Ici on charge les images
 fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
-pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") 
+pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") # image permettant de résoudre des dysfonctionnements graphiques
+# icônes de flèches à côté des boutons des menus déroulants
 img_up = tk.PhotoImage(file="images/up.png")  
 img_down = tk.PhotoImage(file="images/down.png")
+# drapeaux
 gb = tk.PhotoImage(file="images/gb.png")
 fr = tk.PhotoImage(file="images/fr.png")
 us = tk.PhotoImage(file="images/us.png")
 it = tk.PhotoImage(file="images/it.png")
 ca = tk.PhotoImage(file="images/ca.png")
+# médailles
 img_gold = tk.PhotoImage(file="images/gold.png")
 img_silver = tk.PhotoImage(file="images/silver.png")
 img_bronze = tk.PhotoImage(file="images/bronze.png")
@@ -36,18 +40,19 @@ police = font.Font(family="Arial", size=15)
 
 # Fonction pour afficher le menu de droite
 def menu_liste():
-    bouton_deroulant2.config(image=img_down)
+    bouton_deroulant2.config(image=img_down) # ouverture du menu : flèche vers le bas
     def menu_sportifs():
         vider_cadre3() 
-        label_fond.configure(image=pixel_gris, bg="lightgray")
-        #création de la barre de défilement etc
+        label_fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
+        # création de la barre de défilement 
         cadre_scrollbar = ctk.CTkScrollableFrame(cadre3,
-                                                 label_text="Liste des sportifs",
+                                                 label_text="Liste des sportifs", # titre du cadre
                                                  label_font=(police,19),
                                                  fg_color="lightgray",
                                                  )
         cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH)
         for pays, valeur in liste_sportifs.dico_sportifs.items():
+            # on associe chaque pays à son image
             if pays == 1:
                 img = fr
             elif pays == 2:
@@ -60,16 +65,19 @@ def menu_liste():
                 img = it
             
             for i in valeur:
+                # Le 1er élément du tuple "valeur" est le prénom, le 2e est le nom
                 prenom_sportif = i[0]
                 nom_sportif = i[1]
                 sportif = f"{prenom_sportif} : {nom_sportif}"
                 
-                cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray")  # Création d'un cadre pour chaque paire de labels
+                # Création d'un cadre pour chaque paire de labels
+                cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray")  
                 cadre_label.pack(fill=tk.BOTH, expand=tk.YES, side=tk.TOP)
+                # Ligne de séparation
                 underscore = "___________________________________________________________________________________________________________________"
                 ligne = tk.Label(cadre_label, text=underscore, font=(police, 12), bg="lightgray")
                 ligne.pack()
-                contenu_txt = tk.Label(cadre_label, text=sportif, font=police, bg="lightgray")#cadre_scrollbar
+                contenu_txt = tk.Label(cadre_label, text=sportif, font=police, bg="lightgray")
                 contenu_txt.pack(side=tk.LEFT)
                 contenu_img = tk.Label(cadre_label, image=img, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.RIGHT)
@@ -80,15 +88,16 @@ def menu_liste():
                                     label_text="Liste des disciplines",
                                     label_font=(police,19),
                                     fg_color="lightgray",
-                                    scrollbar_button_hover_color="lightgray",
+                                    scrollbar_button_hover_color="lightgray",# sert à rien ?
                                     scrollbar_button_color="lightgray")
         cadre_ctk.pack(expand=tk.YES, fill=tk.BOTH)
+        # Discipline : Description de la discipline
         texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
         contenu = tk.Label(cadre_ctk, text=texte, font=police, bg="lightgray")
         contenu.pack(expand=tk.YES, fill=tk.BOTH)
 
     bouton_sportifs = tk.Button(cadre2,
-                             cursor='hand2',
+                             cursor='hand2', # la flèche de la souris devient une main pour indiquer que l'on peut cliquer
                              text="Sportifs", 
                              font=(police, 12), 
                              width=13,
@@ -115,7 +124,7 @@ def menu_liste():
                     command=fenetre_ajouter_sportif,
                     activebackground = 'lightpink') 
     bouton_ajouter_sportif.pack()
-    global_bouton_deroulant2.config(command=appel_fonction_fermer_liste)
+    global_bouton_deroulant2.config(command=appel_fonction_fermer_liste) # à modifier ?
 
 def fenetre_ajouter_sportif():
     vider_cadre3() 
@@ -221,7 +230,7 @@ def fenetre_ajouter_sportif():
 #Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
     for widget in cadre3.winfo_children():
-        if widget != label_fond: 
+        if widget != label_fond: # le contenu du cadre est supprimé sauf ce qui permet d'afficher l'image de fond
             widget.destroy()
     label_fond.configure(image=fond) 
 
@@ -412,7 +421,7 @@ def fenetre_ajouter_resultat():
                     "Italie": "5",
                 }.get(nom_pays_var.get())
                 if id_pays is None: 
-                    raise ValueError("Pays non trouvé") # si on l'utilise pas autant le supprimer ?
+                    raise ValueError("Pays non trouvé") 
                 id_discipline = {
                     "Athlétisme": "1",
                     "Natation": "2",
