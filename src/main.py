@@ -8,15 +8,9 @@ import customtkinter as ctk # module permettant de faire des cadres avec une bar
 fenetre = tk.Tk()
 fenetre.title("Jeux-Olympique")
 fenetre.geometry("720x420")
-fenetre.minsize(550, 300)
+fenetre.minsize(565, 330)
 fenetre.config(background='lightgray')
 fenetre.iconbitmap("images/logo-jo.ico")
-
-# ne sert à rien ? :
-'''# Listes des resultats
-resultats = ["Pays", "Pays + Disciplines"]
-# Listes des sportifs et des disciplines
-listes = ["Sportifs", "Disciplines"]'''
 
 # Ici on charge les images
 fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
@@ -88,13 +82,17 @@ def menu_liste():
                                     label_text="Liste des disciplines",
                                     label_font=(police,19),
                                     fg_color="lightgray",
-                                    scrollbar_button_hover_color="lightgray",# sert à rien ?
-                                    scrollbar_button_color="lightgray")
+                                    orientation="horizontal")
         cadre_ctk.pack(expand=tk.YES, fill=tk.BOTH)
         # Discipline : Description de la discipline
-        texte = "\n".join(f"{clef}: {valeur}" for clef, valeur in liste_disciplines.dico_disciplines.items())
-        contenu = tk.Label(cadre_ctk, text=texte, font=police, bg="lightgray")
-        contenu.pack(expand=tk.YES, fill=tk.BOTH)
+        for discipline, description in liste_disciplines.dico_disciplines.items():
+            texte = f"{discipline} : {description}\n"
+            # création d'un cadre pour chaque couple "discpline + description"
+            cadre_label = tk.Frame(cadre_ctk, bg="lightgray")  
+            cadre_label.pack(fill=tk.BOTH, expand=tk.YES, side=tk.TOP)
+            # zone de texte 
+            contenu = tk.Label(cadre_label, text=texte, font=police, bg="lightgray")
+            contenu.pack(side=tk.LEFT)
 
     bouton_sportifs = tk.Button(cadre2,
                              cursor='hand2', # la flèche de la souris devient une main pour indiquer que l'on peut cliquer
