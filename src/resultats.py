@@ -1,7 +1,9 @@
 from mysql.connector import connect
 
+# Connexion à la base de données MySQL
 bdd = connect(host="localhost", user="root", password="root", database="Jeux_olympiques")
 
+# Classe pour récupérer les résultats par pays
 class resultat_pays():
     cursor = bdd.cursor()
     cursor.execute("""SELECT nom_pays AS Pays,
@@ -14,14 +16,13 @@ class resultat_pays():
                    """)
     resultat = cursor.fetchall()
 
-    # Création d'un dictionnaire vide
+    # Création d'un dictionnaire pour stocker les résultats par pays
     dico_resultat_pays = {}
-
     for resultat_pays in resultat:
-        Pays, Or, Argent, Bronze = resultat_pays
-        # Ajout des valeurs au dictionnaire avec les clés 
+        Pays, Or, Argent, Bronze = resultat_pays 
         dico_resultat_pays.setdefault(Pays, []).append((Or, Argent, Bronze))
 
+# Classe pour récupérer les résultats des pays par discipline
 class resultat_discipline():
     cursor = bdd.cursor()
     cursor.execute(""" SELECT nom_discipline AS Discipline,
@@ -37,15 +38,15 @@ class resultat_discipline():
                    """)
     resultat = cursor.fetchall()
 
-    # Création d'un dictionnaire vide
+    # Création d'un dictionnaire pour stocker les résultats
     dico_resultat_disciplines = {}
-
     for resultat_disciplines in resultat:
         Discipline, Pays, Or, Argent, Bronze = resultat_disciplines
         dico_resultat_disciplines.setdefault(Discipline, []).append(
             (Pays, Or, Argent, Bronze)
         )
 
+# Fonction pour ajouter un résultat à la base de données
 def ajouter_resultat(id_pays, id_discipline, medaille_or, medaille_argent, medaille_bronze):
     cursor = bdd.cursor()
     sql = "INSERT INTO Resultats(id_pays, id_discipline, medaille_or, medaille_argent, medaille_bronze) VALUES (%s, %s, %s, %s, %s)"
