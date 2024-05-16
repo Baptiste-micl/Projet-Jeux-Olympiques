@@ -13,6 +13,7 @@ class resultat_pays():
                    FROM Resultats
                    JOIN Pays ON Pays.id_pays = Resultats.id_pays
                    GROUP BY Pays.nom_pays
+                   ORDER BY Pays.nom_pays;
                    """)
     resultat = cursor.fetchall()
 
