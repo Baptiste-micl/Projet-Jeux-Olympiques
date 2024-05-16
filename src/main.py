@@ -32,6 +32,37 @@ img_bronze = tk.PhotoImage(file="images/bronze.png")
 # Ici on définit une police pour toute la fenetre
 police = font.Font(family="Arial", size=15)
 
+#Cette fonction créer un rectangle avec des coins arrondis (radius) dans un Canvas
+def arrondis(canvas, x1, y1, x2, y2, radius, **kwargs):
+    # (x1, y1) : coordonnées du coin supérieur gauche
+    # (x2, y2) : coordonnées du coin inférieur droit
+    points = [x1+radius, y1,
+              x1+radius, y1,
+              x2-radius, y1,
+              x2-radius, y1,
+              x2, y1,
+              x2, y1+radius,
+              x2, y1+radius,
+              x2, y2-radius,
+              x2, y2-radius,
+              x2, y2,
+              x2-radius, y2,
+              x2-radius, y2,
+              x1+radius, y2,
+              x1+radius, y2,
+              x1, y2,
+              x1, y2-radius,
+              x1, y2-radius,
+              x1, y1+radius,
+              x1, y1+radius,
+              x1, y1]
+    # Les coins arrondis sont calculés en ajoutant ou soustrayant le rayon (radius) aux coordonnées des coins du rectangle.
+
+    # Création du polygone avec des coins arrondis
+    canvas.create_polygon(points, 
+                          **kwargs, # permet de faire passer des options supplémentaires, comme fill et outline
+                          smooth=True) # bords du polygone lisses (utile pour l'effet visuel arrondis)
+
 # Fonction pour afficher le menu de droite
 def menu_liste():
     bouton_deroulant2.config(image=img_down) # ouverture du menu : flèche vers le bas
@@ -62,7 +93,7 @@ def menu_liste():
                 # Le 1er élément du tuple "valeur" est le prénom, le 2e est le nom
                 prenom_sportif = i[0]
                 nom_sportif = i[1]
-                sportif = f"{prenom_sportif} : {nom_sportif}"
+                sportif = f"{prenom_sportif}  {nom_sportif}"
                 
                 # Création d'un cadre pour chaque paire de labels
                 cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray")  
@@ -71,10 +102,12 @@ def menu_liste():
                 underscore = "___________________________________________________________________________________________________________________"
                 ligne = tk.Label(cadre_label, text=underscore, font=(police, 12), bg="lightgray")
                 ligne.pack()
+
                 contenu_txt = tk.Label(cadre_label, text=sportif, font=police, bg="lightgray")
                 contenu_txt.pack(side=tk.LEFT)
                 contenu_img = tk.Label(cadre_label, image=img, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.RIGHT)
+    
     def menu_disciplines():
         vider_cadre3() 
         label_fond.configure(image=pixel_gris, bg="lightgray")
@@ -82,7 +115,7 @@ def menu_liste():
                                     label_text="Liste des disciplines",
                                     label_font=(police,19),
                                     fg_color="lightgray",
-                                    orientation="horizontal")
+                                    orientation="horizontal") # barre de défilement horizontale : MAJ+molette  pour l'utiliser
         cadre_ctk.pack(expand=tk.YES, fill=tk.BOTH)
         # Discipline : Description de la discipline
         for discipline, description in liste_disciplines.dico_disciplines.items():
@@ -122,7 +155,7 @@ def menu_liste():
                     command=fenetre_ajouter_sportif,
                     activebackground = 'lightpink') 
     bouton_ajouter_sportif.pack()
-    global_bouton_deroulant2.config(command=appel_fonction_fermer_liste) # à modifier ?
+    bouton_deroulant2.config(command=appel_fonction_fermer_liste)
 
 def fenetre_ajouter_sportif():
     vider_cadre3() 
@@ -132,7 +165,8 @@ def fenetre_ajouter_sportif():
         if prenom_entry.get() == "Prénom" and nom_entry.get() == "Nom":
             prenom_entry.delete(0, tk.END)
             nom_entry.delete(0, tk.END) 
-            prenom_entry.config(fg="#184A73")
+            # la couleur de la police d'écriture change de gris à bleu foncé
+            prenom_entry.config(fg="#184A73") 
             nom_entry.config(fg="#184A73")
     prenom_txt = "Prénom"
     nom_txt = "Nom"
@@ -145,6 +179,7 @@ def fenetre_ajouter_sportif():
     nom_pays_var.set('Pays ') 
     nom_discipline_var = tk.StringVar()
     nom_discipline_var.set('Discipline ')
+    # Champs d'écriture
     nom_entry = tk.Entry(cadre3, textvariable=nom_var, font=(police), bg='lightgray', fg='grey')
     prenom_entry = tk.Entry(cadre3, textvariable=prenom_var, font=(police), bg='lightgray', fg='grey')
     prenom_entry.insert(0, prenom_txt)
@@ -153,7 +188,8 @@ def fenetre_ajouter_sportif():
     nom_entry.bind("<FocusIn>", entry_click)
     prenom_entry.pack()
     nom_entry.pack()
-    bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays) # boutons de menus déroulants
+    # Boutons de menus déroulants
+    bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays) 
     bouton_pays.pack(pady=3)
     bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
     bouton_discipline.pack(pady=3)
@@ -163,7 +199,7 @@ def fenetre_ajouter_sportif():
         fg='white', 
         activeforeground= 'black', 
         activebackground = '#51AA3A', 
-        command=lambda: recuperer_valeurs1(),
+        command=lambda: recuperer_valeurs_ajout(),
         )
     bouton_ajouter_sportif.pack()
     bouton_supprimer_sportif = tk.Button(cadre3, text="Supprimer un sportif", font=(police, 12), 
@@ -172,29 +208,38 @@ def fenetre_ajouter_sportif():
         fg='white',
         activeforeground= 'black', 
         activebackground = '#C3423D', 
-        command=lambda: recuperer_valeurs2(),
+        command=lambda: recuperer_valeurs_suppr(),
         )
     bouton_supprimer_sportif.pack()
     bouton_config(bouton_pays)
     bouton_config(bouton_discipline)
     # futur message d'avertissement (pour l'instant invisible)
     label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
-    label_avertissement.pack(pady=20) 
-    def recuperer_valeurs1():
+    label_avertissement.pack(pady=0)
+    # Zone pour message d'avertissement qui indiquera qu'il faut relancer le programme
+    canvas_avertissement = tk.Canvas(cadre3, width=30, height=20, bg="lightgray",highlightthickness=0)
+    canvas_avertissement.pack()
+    
+    # Fonction pour ajouter un sportif
+    def recuperer_valeurs_ajout():
+        # On rend les messages d'avertissement invisibles (utile uniquement dans des cas précis)
         label_avertissement.config(text="", bg="lightgray")
+        canvas_avertissement.config(bg="lightgray", width=0, height=0)
+        label_avertissement.pack_configure(pady=0) # réduction de l'espace entre les messages d'avertissement
+        
         champs = (nom_var.get(), prenom_var.get(), nom_pays_var.get(), nom_discipline_var.get())
         # Vérifie si tous les champs sont non-vides
-        if all(champs) and nom_var.get() != "Nom" and prenom_var.get() != "Prénom":  
+        if all(champs) and nom_var.get() != "Nom" and prenom_var.get() != "Prénom": 
             try:# test si chaque champs est remplis
                 id_pays = {
                     "France": "1",
-                    "États-unis": "2",
+                    "États-Unis": "2",
                     "Canada": "3",
                     "Angleterre": "4",
                     "Italie": "5",
                 }.get(nom_pays_var.get())
-                if id_pays is None: 
-                    raise ValueError("Pays non trouvé") # si on l'utilise pas autant le supprimer ?
+                if id_pays is None:
+                    raise ValueError("Pays non trouvé")
                 id_discipline = {
                     "Athlétisme": "1",
                     "Natation": "2",
@@ -205,14 +250,26 @@ def fenetre_ajouter_sportif():
                 ajout_prenom = prenom_var.get()
                 ajout_nom = nom_var.get()
                 ajouter_sportif(ajout_nom, ajout_prenom, id_pays, id_discipline)
+                # après l'ajout du sportif, on efface le prénom et le nom pour que l'utilisateur puisse en rentrer un nouveau
                 nom_entry.delete(0, tk.END)
                 prenom_entry.delete(0, tk.END)
-                label_avertissement.config(text="Veuillez fermer la fenêtre, puis relancer l'application pour mettre à jour la base de données.", bg="white")
+
+                label_avertissement.pack_configure(pady=0)
+                # Coins arrondis sur le Canvas
+                canvas_avertissement.config(bg="lightgray", width=240, height=140)
+                arrondis(canvas_avertissement, 20, 20, 220, 120, radius=20, fill='#ACCDD8', outline="black")
+                canvas_avertissement.create_text(120, 70, 
+                                                 text="Veuillez fermer la fenêtre.\nPuis relancer l'application.\n\n     (Pour mettre à jour \n    la base de données.)", 
+                                                 font=(police,12))
             except ValueError as e:
+                label_avertissement.pack_configure(pady=20)
                 label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
         else:
+            label_avertissement.pack_configure(pady=20)
             label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
-    def recuperer_valeurs2(): 
+
+    # Fonction pour supprimer un sportif
+    def recuperer_valeurs_suppr(): 
         nom = nom_var.get()
         prenom = prenom_var.get()
         supprimer_sportif(nom, prenom)
@@ -223,7 +280,7 @@ def fenetre_ajouter_sportif():
         elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
             pass
   
-#Fonction pour effacer le contenu du cadre central
+# Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
     for widget in cadre3.winfo_children(): # recherche de tous les éléments dans le cadre
         if widget != label_fond: # le contenu du cadre est supprimé sauf ce qui permet d'afficher l'image de fond
@@ -239,25 +296,28 @@ def fermer_menu(cadre, bouton_deroulant):
 
 # Fonction pour l'etat du menu "fermé"
 def appel_fonction_fermer_liste():
-   fermer_menu(cadre2, global_bouton_deroulant2)
-   bouton_deroulant2.config(image=img_up)
-   global_bouton_deroulant2.config(command=menu_liste)
+   fermer_menu(cadre2, bouton_deroulant2) # le menu se ferme
+   bouton_deroulant2.config(image=img_up) # fermeture du menu : flèche vers le haut
+   bouton_deroulant2.config(command=menu_liste) # la commande du bouton change pour pouvoir réouvrir le menu plus tard
   
 # Fonction pour afficher le menu de gauche
-# Pour plus d'infos et d'explications sur cette fonction, voir la fonction menu_liste ligne n°~42
 def menu_resultat():
-    bouton_deroulant1.config(image=img_down)
+    bouton_deroulant1.config(image=img_down) # ouverture du menu : flèche vers le bas
+    
+    # Fonction pour l'affichage des résultats par pays
     def menu_resultats_pays():
         vider_cadre3()
-        label_fond.configure(image=pixel_gris, bg="lightgray")
+        label_fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
         cadre_ctk = ctk.CTkScrollableFrame(cadre3,
                                     label_text="Liste des résultats par pays",
                                     label_font=(police,19),
                                     fg_color="lightgray",
+                                    # barre de défilement invisible
                                     scrollbar_button_hover_color="lightgray",
                                     scrollbar_button_color="lightgray")
         cadre_ctk.pack(expand=tk.YES, fill=tk.BOTH)
         for pays, resultat in resultat_pays.dico_resultat_pays.items():
+            # on associe chaque pays à son image
             if pays == "France":
                 img = fr
             elif pays == "États-Unis":
@@ -270,6 +330,7 @@ def menu_resultat():
                 img = it
             
             for medaille in resultat:
+                # Pour chaque élément du tuple resultat, on associe la bonne médaille
                 gold = medaille[0]
                 silver = medaille[1]
                 bronze = medaille[2]
@@ -296,26 +357,29 @@ def menu_resultat():
                 contenu_img = tk.Label(cadre_label, image=img_silver, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.LEFT)
                 # nombre de médailles de bronze
-                contenu_txt = tk.Label(cadre_label, text=bronze, font=police, bg="lightgray")#cadre_scrollbar
+                contenu_txt = tk.Label(cadre_label, text=bronze, font=police, bg="lightgray")
                 contenu_txt.pack(side=tk.LEFT)
                 # image médaille de bronze
                 contenu_img = tk.Label(cadre_label, image=img_bronze, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.LEFT)
          
+    # Fonction pour l'affichage des résultats des pays par discipline
     def menu_resultats_disciplines():
         vider_cadre3()
         label_fond.configure(image=pixel_gris, bg="lightgray")
-        #création de la barre de défilement etc
+        # Création de la barre de défilement etc
         cadre_scrollbar = ctk.CTkScrollableFrame(cadre3,
-                                                 label_text="Liste des résultats par disciplines",
+                                                 label_text="Liste des résultats par discipline",
                                                  label_font=(police,19),
                                                  fg_color="lightgray",
                                                  orientation="vertical")
         cadre_scrollbar.pack(expand=tk.YES, fill=tk.BOTH, side =tk.TOP)
         for discipline, valeur in resultat_discipline.dico_resultat_disciplines.items():
+            # Affichage de la discipline
             affichage_discipline = tk.Label(cadre_scrollbar, text=discipline, font=(police,18), bg="lightgray")
             affichage_discipline.pack(side=tk.TOP)
             for i in valeur:
+                # on associe chaque pays à son image
                 pays = i[0]
                 if pays == "France":
                     img = fr
@@ -327,31 +391,41 @@ def menu_resultat():
                     img = gb
                 elif pays == "Italie":
                     img = it
+                # on associe la bonne médaille
                 gold = i[1]
                 silver = i[2]
                 bronze = i[3]
                 affichage1 = f"{pays} : {gold}"
-                # pour plus de détails sur l'affichage, voir la fonction menu_resultats_pays ligne 275
+                # création d'un cadre pour chaque "groupe" d'affichage
                 cadre_label = tk.Frame(cadre_scrollbar, bg="lightgray") 
                 cadre_label.pack(side=tk.TOP, expand=tk.YES) 
+                # ligne de séparation
                 underscore = "_______________________________________________________________________________________________________________"
                 ligne = tk.Label(cadre_scrollbar, text=underscore, font=(police, 12), bg="lightgray")
                 ligne.pack(expand=tk.YES)
+                # drapeau pays
                 contenu_img = tk.Label(cadre_label, image=img, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.LEFT)
+                # Pays + nombre de médailles d'or
                 contenu_txt = tk.Label(cadre_label, text=affichage1, font=police, bg="lightgray")
                 contenu_txt.pack(side=tk.LEFT)
+                # image médaille d'or
                 contenu_img = tk.Label(cadre_label, image=img_gold, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.LEFT)
+                # nombre de médaille d'argent
                 contenu_txt = tk.Label(cadre_label, text=silver, font=police, bg="lightgray")
                 contenu_txt.pack(side=tk.LEFT)
+                # image médaille d'argent
                 contenu_img = tk.Label(cadre_label, image=img_silver, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.LEFT)
+                # nombre de médailles de bronze
                 contenu_txt = tk.Label(cadre_label, text=bronze, font=police, bg="lightgray")
                 contenu_txt.pack(side=tk.LEFT)
+                # image médaille de bronze
                 contenu_img = tk.Label(cadre_label, image=img_bronze, font=police, bg="lightgray")
                 contenu_img.pack(side=tk.LEFT)
 
+    # Création des boutons du menu de gauche
     bouton_pays = tk.Button(cadre1,
                              cursor='hand2',
                              text="Pays", 
@@ -365,7 +439,7 @@ def menu_resultat():
     bouton_pays.pack()
     bouton_disciplines = tk.Button(cadre1,
                                    cursor='hand2', 
-                                   text="Disciplines", 
+                                   text="Pays / Discipline", 
                                    font=(police, 12),
                                    width=13, 
                                    bg='gray', 
@@ -380,7 +454,7 @@ def menu_resultat():
                     command=fenetre_ajouter_resultat,
                     activebackground = 'lightpink') 
     bouton_ajouter_resultat.pack()
-    global_bouton_deroulant1.config(command=appel_fonction_fermer_resultat)
+    bouton_deroulant1.config(command=appel_fonction_fermer_resultat)
 
 def fenetre_ajouter_resultat():
     vider_cadre3() 
@@ -398,7 +472,7 @@ def fenetre_ajouter_resultat():
     medaille = ["Or", "Argent", "Bronze"]
     # On crée les différents boutons
     bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
-    bouton_discipline.pack(pady=3) # changement de l'ordre
+    bouton_discipline.pack(pady=3) 
     bouton_pays = tk.OptionMenu(cadre3, nom_pays_var, *pays)
     bouton_pays.pack(pady=3)
     bouton_medaille = tk.OptionMenu(cadre3, choix_medaille_var, *medaille)
@@ -409,19 +483,25 @@ def fenetre_ajouter_resultat():
         fg='white', 
         activeforeground= 'black', 
         activebackground = '#51AA3A', 
-        command=lambda: recuperer_valeurs3(),
+        command=lambda: recuperer_valeurs_result(),
         )
     bouton_ajouter_resultat.pack()
-    label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray')
-    label_avertissement.pack(pady=20) 
-    def recuperer_valeurs3(): 
+    # Zone pour message d'erreur
+    label_avertissement = tk.Label(cadre3, text="", font=(police, 10), bg='lightgray',)
+    label_avertissement.pack(pady=10) 
+    # Zone pour message d'avertissement qui indiquera qu'il faut relancer le programme
+    canvas_avertissement = tk.Canvas(cadre3, width=30, height=20, bg="lightgray",highlightthickness=0)
+    canvas_avertissement.pack()
+    # Fonction pour ajouter le résultat à la base de données
+    def recuperer_valeurs_result(): 
         label_avertissement.config(text="", bg="lightgray")
+        canvas_avertissement.config(bg="lightgray", width=0, height=0)
         champs = (choix_medaille_var.get(), nom_pays_var.get(), nom_discipline_var.get())
         if all(champs): # Vérifie si tous les champs sont non-vides 
             try:
                 id_pays = {
                     "France": "1",
-                    "États-unis": "2",
+                    "États-Unis": "2",
                     "Canada": "3",
                     "Angleterre": "4",
                     "Italie": "5",
@@ -443,19 +523,24 @@ def fenetre_ajouter_resultat():
                     ajouter_resultat(id_pays, id_discipline, "0", "0", "1")
                 else:
                     raise ValueError("Médaille non trouvée") 
-                label_avertissement.config(text="Veuillez fermer la fenêtre, puis relancer l'application pour mettre à jour la base de données.", bg="white")
+                # Coins arrondis sur le Canvas
+                canvas_avertissement.config(bg="lightgray", width=240, height=140)
+                arrondis(canvas_avertissement, 20, 20, 220, 120, radius=20, fill='#ACCDD8', outline="black")
+                canvas_avertissement.create_text(120, 70, 
+                                                 text="Veuillez fermer la fenêtre.\nPuis relancer l'application.\n\n     (Pour mettre à jour \n    la base de données.)", 
+                                                 font=(police,12))
             except ValueError as e:
                 label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
         else:
-            label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
+            print("Erreur")
     bouton_config(bouton_pays)
     bouton_config(bouton_discipline)
     bouton_config(bouton_medaille)
         
 def appel_fonction_fermer_resultat(): 
-   fermer_menu(cadre1, global_bouton_deroulant1)
-   bouton_deroulant1.config(image=img_up)
-   global_bouton_deroulant1.config(command=menu_resultat)
+   fermer_menu(cadre1, bouton_deroulant1) # le menu se ferme
+   bouton_deroulant1.config(image=img_up) # fermeture du menu : flèche vers le haut
+   bouton_deroulant1.config(command=menu_resultat) # la commande du bouton change pour pouvoir réouvrir le menu plus tard
 
 def bouton_config(bouton):
     # configuration du design des boutons OptionMenu déroulants
@@ -494,10 +579,6 @@ cadre2.pack(side="right", fill="y")
 cadre3 = tk.Frame(fenetre, bg='lightgray')
 cadre3.pack(expand=tk.YES,side="top", fill="both")
 
-# Variable pour stocker la sélection
-choix_selectionne1 = tk.StringVar() # sert à rien ?
-choix_selectionne2 = tk.StringVar()
-
 # Bouton déroulant à gauche
 bouton_deroulant1 = tk.Button(cadre1,
                               text="Resultats ",
@@ -512,8 +593,6 @@ bouton_deroulant1 = tk.Button(cadre1,
                               compound=tk.RIGHT,
                               )
 bouton_deroulant1.pack(fill=tk.X)
-global global_bouton_deroulant1
-global_bouton_deroulant1 = bouton_deroulant1
 
 # Bouton déroulant à droite
 bouton_deroulant2 = tk.Button(cadre2,
@@ -529,8 +608,6 @@ bouton_deroulant2 = tk.Button(cadre2,
                               compound=tk.RIGHT,
                               )
 bouton_deroulant2.pack(fill=tk.X)
-global global_bouton_deroulant2
-global_bouton_deroulant2 = bouton_deroulant2
 
 label_fond = tk.Label(cadre3, image=fond, border=0)
 label_fond.pack()
