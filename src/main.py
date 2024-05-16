@@ -13,7 +13,7 @@ fenetre.config(background='lightgray')
 fenetre.iconbitmap("images/logo-jo.ico")
 
 # Ici on charge les images
-fond = tk.PhotoImage(file="images/anneaux_olympiques.png")
+anneaux = tk.PhotoImage(file="images/anneaux_olympiques.png")
 pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") # image permettant de résoudre des dysfonctionnements graphiques
 # icônes de flèches à côté des boutons des menus déroulants
 img_up = tk.PhotoImage(file="images/up.png")  
@@ -68,7 +68,7 @@ def menu_liste():
     bouton_deroulant2.config(image=img_down) # ouverture du menu : flèche vers le bas
     def menu_sportifs():
         vider_cadre3() 
-        label_fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
+        fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
         # création de la barre de défilement 
         cadre_scrollbar = ctk.CTkScrollableFrame(cadre3,
                                                  label_text="Liste des sportifs", # titre du cadre
@@ -110,7 +110,7 @@ def menu_liste():
     
     def menu_disciplines():
         vider_cadre3() 
-        label_fond.configure(image=pixel_gris, bg="lightgray")
+        fond.configure(image=pixel_gris, bg="lightgray")
         cadre_ctk = ctk.CTkScrollableFrame(cadre3,
                                     label_text="Liste des disciplines",
                                     label_font=(police,19),
@@ -156,10 +156,11 @@ def menu_liste():
                     activebackground = 'lightpink') 
     bouton_ajouter_sportif.pack()
     bouton_deroulant2.config(command=appel_fonction_fermer_liste)
+    fond.config(command=fermeture_menus)
 
 def fenetre_ajouter_sportif():
     vider_cadre3() 
-    label_fond.configure(image=pixel_gris, font=police, bg="lightgray") 
+    fond.configure(image=pixel_gris, font=police, bg="lightgray") 
     def entry_click(event): # lorsque l'utilisateur clique dans les champs d'écriture
         # l'affichage "Prénom" et "Nom" en gris s'efface
         if prenom_entry.get() == "Prénom" and nom_entry.get() == "Nom":
@@ -283,9 +284,9 @@ def fenetre_ajouter_sportif():
 # Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
     for widget in cadre3.winfo_children(): # recherche de tous les éléments dans le cadre
-        if widget != label_fond: # le contenu du cadre est supprimé sauf ce qui permet d'afficher l'image de fond
+        if widget != fond: # le contenu du cadre est supprimé sauf ce qui permet d'afficher l'image de fond
             widget.destroy()
-    label_fond.configure(image=fond) 
+    fond.configure(image=anneaux) 
 
 # Fonction permettant de fermer les menus
 def fermer_menu(cadre, bouton_deroulant):
@@ -307,7 +308,7 @@ def menu_resultat():
     # Fonction pour l'affichage des résultats par pays
     def menu_resultats_pays():
         vider_cadre3()
-        label_fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
+        fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
         cadre_ctk = ctk.CTkScrollableFrame(cadre3,
                                     label_text="Liste des résultats par pays",
                                     label_font=(police,19),
@@ -318,17 +319,16 @@ def menu_resultat():
         cadre_ctk.pack(expand=tk.YES, fill=tk.BOTH)
         for pays, resultat in resultat_pays.dico_resultat_pays.items():
             # on associe chaque pays à son image
-            if pays == "France":
-                img = fr
-            elif pays == "États-Unis":
-                img = us
+            if pays == "Angleterre":
+                img = gb
             elif pays == "Canada":
                 img = ca
-            elif pays == "Angleterre":
-                img = gb
+            elif pays == "États-Unis":
+                img = us
+            elif pays == "France":
+                img = fr
             elif pays == "Italie":
                 img = it
-            
             for medaille in resultat:
                 # Pour chaque élément du tuple resultat, on associe la bonne médaille
                 gold = medaille[0]
@@ -366,7 +366,7 @@ def menu_resultat():
     # Fonction pour l'affichage des résultats des pays par discipline
     def menu_resultats_disciplines():
         vider_cadre3()
-        label_fond.configure(image=pixel_gris, bg="lightgray")
+        fond.configure(image=pixel_gris, bg="lightgray")
         # Création de la barre de défilement etc
         cadre_scrollbar = ctk.CTkScrollableFrame(cadre3,
                                                  label_text="Liste des résultats par discipline",
@@ -381,14 +381,14 @@ def menu_resultat():
             for i in valeur:
                 # on associe chaque pays à son image
                 pays = i[0]
-                if pays == "France":
-                    img = fr
-                elif pays == "États-Unis":
-                    img = us
+                if pays == "Angleterre":
+                    img = gb
                 elif pays == "Canada":
                     img = ca
-                elif pays == "Angleterre":
-                    img = gb
+                elif pays == "États-Unis":
+                    img = us
+                elif pays == "France":
+                    img = fr
                 elif pays == "Italie":
                     img = it
                 # on associe la bonne médaille
@@ -455,10 +455,11 @@ def menu_resultat():
                     activebackground = 'lightpink') 
     bouton_ajouter_resultat.pack()
     bouton_deroulant1.config(command=appel_fonction_fermer_resultat)
+    fond.config(command=fermeture_menus)
 
 def fenetre_ajouter_resultat():
     vider_cadre3() 
-    label_fond.configure(image=pixel_gris, font=police, bg="lightgray") 
+    fond.configure(image=pixel_gris, font=police, bg="lightgray") 
     # On crée les variables pour stocker
     nom_pays_var = tk.StringVar()
     nom_pays_var.set('Pays ') 
@@ -569,6 +570,16 @@ def bouton_config(bouton):
         font=(police,10),
         border=0)
     
+# Fonctions pour ouvrir et fermer les 2 menus latéraux en cliquant sur l'image d'anneaux des JO
+def ouverture_menus():
+    menu_resultat()
+    menu_liste()
+    fond.config(command=fermeture_menus)
+def fermeture_menus():
+    appel_fonction_fermer_resultat()
+    appel_fonction_fermer_liste()
+    fond.config(command=ouverture_menus)
+
 # Cadre pour le premier bouton déroulant à gauche
 cadre1 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre1.pack(side="left", fill="y")
@@ -609,8 +620,8 @@ bouton_deroulant2 = tk.Button(cadre2,
                               )
 bouton_deroulant2.pack(fill=tk.X)
 
-label_fond = tk.Label(cadre3, image=fond, border=0)
-label_fond.pack()
+fond = tk.Button(cadre3, image=anneaux, border=0, command=ouverture_menus)
+fond.pack()
 
 # Lancement de la boucle principale
 fenetre.mainloop()
