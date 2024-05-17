@@ -59,17 +59,17 @@ CREATE TABLE Resultats (
 
 -- Insertion pour les Pays
 INSERT INTO Pays 
-VALUES (1,'France', '[Image du drapeau français: URL non valide]'),
-       (2,'États-Unis', '[Image du drapeau américain: URL non valide]'),
-       (3,'Canada', '[Image du drapeau canadien: URL non valide]'),
-       (4,'Angleterre', '[Image du drapeau britannique: URL non valide]'),
-       (5,'Italie', '[Image du drapeau italien: URL non valide]');
+VALUES (1,'France'),
+       (2,'États-Unis'),
+       (3,'Canada'),
+       (4,'Angleterre'),
+       (5,'Italie');
 
 
 -- Insertion pour les disciplines
 INSERT INTO Disciplines 
 VALUES (1,'Athlétisme', 'L’athlétisme est un ensemble d’épreuves sportives codifiées comprenant les courses, sauts, lancers, épreuves combinées et marche.'),
-       (2,'Natation', 'La natation désigne les méthodes qui permettent aux êtres humains de se mouvoir en milieu aquatique sans aucune autre force propulsive que leur propre énergie corporelle.'),
+       (2,'Natation', 'La natation, cest-à-dire l action de nager (Écouter), désigne les méthodes qui permettent aux êtres humains de se mouvoir dans l eau sans aucune autre force propulsive que leur propre énergie corporelle.'),
        (3,'Judo', 'Le judo est un art martial, créé au Japon en 1882 par Jigorō Kanō en tant que pédagogie physique, mentale et morale.');
 
 -- Insertion pour les sportifs
@@ -88,7 +88,7 @@ VALUES (1,'Mayer', 'Kevin', '1992-02-10', 1, 1),
         (12, 'Lewis', 'Carl', '1961-07-01',2,1),
         (13, 'Thompson', 'Jenny', '1973-02-26',2,2),
         (14, 'Biondi', 'Matt', '1965-10-08',2,2),
-        (15, 'Taylor', 'Henry', '1885-03-17',4,2)
+        (15, 'Taylor', 'Henry', '1885-03-17',4,2),
         ;
 
 
