@@ -271,16 +271,27 @@ def fenetre_ajouter_sportif():
 
     # Fonction pour supprimer un sportif
     def recuperer_valeurs_suppr(): 
-        nom = nom_var.get()
-        prenom = prenom_var.get()
-        supprimer_sportif(nom, prenom)
-        nom_entry.delete(0, tk.END)
-        prenom_entry.delete(0, tk.END)
-        if label_avertissement.cget("text") == "": 
-            label_avertissement.config(text="Veuillez relancer le programme pour mettre à jour la base de données.", bg='white')
-        elif label_avertissement.cget("text") == "Veuillez relancer le programme pour mettre à jour la base de données.":
-            pass
-  
+        champs = (nom_var.get(), prenom_var.get())
+        if all(champs) and nom_var.get() != "Nom" and prenom_var.get() != "Prénom": 
+            nom = nom_var.get()
+            prenom = prenom_var.get()
+            supprimer_sportif(nom, prenom)
+            nom_entry.delete(0, tk.END)
+            prenom_entry.delete(0, tk.END)
+            
+            label_avertissement.pack_configure(pady=0)
+            label_avertissement.config(text="", bg="lightgray")
+            # Coins arrondis sur le Canvas
+            canvas_avertissement.config(bg="lightgray", width=240, height=140)
+            arrondis(canvas_avertissement, 20, 20, 220, 120, radius=20, fill='#ACCDD8', outline="black")
+            canvas_avertissement.create_text(120, 70, 
+                            text="Veuillez fermer la fenêtre.\nPuis relancer l'application.\n\n     (Pour mettre à jour \n    la base de données.)", 
+                            font=(police,12))
+        else:
+            label_avertissement.pack_configure(pady=20)
+            label_avertissement.config(text="Tous les champs doivent être remplis.", bg='white')
+            canvas_avertissement.config(bg="lightgray", width=0, height=0)
+
 # Fonction pour effacer le contenu du cadre central
 def vider_cadre3():
     for widget in cadre3.winfo_children(): # recherche de tous les éléments dans le cadre
