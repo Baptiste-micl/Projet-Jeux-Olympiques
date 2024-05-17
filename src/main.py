@@ -18,6 +18,7 @@ pixel_gris = tk.PhotoImage(file="images/pixel-gris.png") # image permettant de r
 # icônes de flèches à côté des boutons des menus déroulants
 img_up = tk.PhotoImage(file="images/up.png")  
 img_down = tk.PhotoImage(file="images/down.png")
+img_parametre = tk.PhotoImage(file="images/parametre.png")
 # drapeaux
 gb = tk.PhotoImage(file="images/gb.png")
 fr = tk.PhotoImage(file="images/fr.png")
@@ -300,15 +301,15 @@ def vider_cadre3():
     fond.configure(image=anneaux) 
 
 # Fonction permettant de fermer les menus
-def fermer_menu(cadre, bouton_deroulant):
+def fermer_menu(cadre, bouton_deroulant, parametre):
    for widget in cadre.winfo_children():
-        if widget != bouton_deroulant:
+        if widget != bouton_deroulant and widget != parametre:
             widget.destroy()
    vider_cadre3()
 
 # Fonction pour l'etat du menu "fermé"
 def appel_fonction_fermer_liste():
-   fermer_menu(cadre2, bouton_deroulant2) # le menu se ferme
+   fermer_menu(cadre2, bouton_deroulant2, bouton_parametre) # le menu se ferme
    bouton_deroulant2.config(image=img_up) # fermeture du menu : flèche vers le haut
    bouton_deroulant2.config(command=menu_liste) # la commande du bouton change pour pouvoir réouvrir le menu plus tard
   
@@ -548,9 +549,9 @@ def fenetre_ajouter_resultat():
     bouton_config(bouton_pays)
     bouton_config(bouton_discipline)
     bouton_config(bouton_medaille)
-        
+
 def appel_fonction_fermer_resultat(): 
-   fermer_menu(cadre1, bouton_deroulant1) # le menu se ferme
+   fermer_menu(cadre1, bouton_deroulant1, bouton_parametre) # le menu se ferme
    bouton_deroulant1.config(image=img_up) # fermeture du menu : flèche vers le haut
    bouton_deroulant1.config(command=menu_resultat) # la commande du bouton change pour pouvoir réouvrir le menu plus tard
 
@@ -580,6 +581,45 @@ def bouton_config(bouton):
         activeforeground="gray",
         font=(police,10),
         border=0)
+    
+def fenetre_parametre():
+    vider_cadre3() 
+    taille_var = tk.StringVar() 
+    taille_var.set('Taille') 
+    choix_taille = ["Grand: 1920x1080", "Moyen: 1280x720", "Petit: 720x576"]
+    fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
+    # création de la barre de défilement 
+    cadre_parametre = ctk.CTkScrollableFrame(cadre3,
+                                                 label_text="Parametre", # titre du cadre
+                                                 label_font=(police,19),
+                                                 fg_color="lightgray",
+                                                 )
+    cadre_parametre.pack(expand=tk.YES, fill=tk.BOTH)
+    contacter = tk.Label(cadre_parametre, text="""Nous contacter en cas de problème: 
+    nicolas.thierry@groupe-esigelec.org
+     baptiste.michel@groupe-esigelec.org""", font=police, bg="lightgray")
+    contacter.pack(pady=3)
+    bouton_taille = tk.OptionMenu(cadre_parametre, taille_var, *choix_taille)
+    bouton_taille.pack(pady=3)
+    bouton_config(bouton_taille)
+    bouton_sauvegarder = tk.Button(cadre_parametre,
+                                   text="Sauvegarder",
+                                   font=(police, 12),
+                                   width=20, 
+                                   bg='#51AA3A', 
+                                   fg='white', 
+                                   activeforeground= 'black', 
+                                   activebackground = '#51AA3A',
+                                   command=lambda: parametre(taille_var))
+    bouton_sauvegarder.pack()
+def parametre(taille_var):
+    taille = taille_var.get()
+    if taille == "Grand: 1920x1080":
+        fenetre.geometry("1920x1080")
+    elif taille == "Moyen: 1280x720":
+        fenetre.geometry("1280x720")
+    elif taille == "Petit: 720x576":
+        fenetre.geometry("720x576")
     
 # Fonctions pour ouvrir et fermer les 2 menus latéraux en cliquant sur l'image d'anneaux des JO
 def ouverture_menus():
@@ -615,6 +655,13 @@ bouton_deroulant1 = tk.Button(cadre1,
                               compound=tk.RIGHT,
                               )
 bouton_deroulant1.pack(fill=tk.X)
+
+# Bouton parametre
+bouton_parametre = tk.Button(cadre1,
+                             image = img_parametre,
+                             bg='#ACCDD8',
+                             command=fenetre_parametre)
+bouton_parametre.pack(anchor="sw", side="bottom")
 
 # Bouton déroulant à droite
 bouton_deroulant2 = tk.Button(cadre2,
