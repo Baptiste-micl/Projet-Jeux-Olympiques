@@ -14,8 +14,7 @@ USE Jeux_olympiques;
 
 CREATE TABLE Pays (
     id_pays INT PRIMARY KEY,
-    nom_pays VARCHAR(100) NOT NULL,
-    drapeau_pays VARCHAR(255)
+    nom_pays VARCHAR(100) NOT NULL
 );
 
 -- Table pour les disciplines
