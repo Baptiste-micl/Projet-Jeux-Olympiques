@@ -95,12 +95,17 @@ VALUES (1,'Mayer', 'Kevin', '1992-02-10', 1, 1),
 -- Insertion pour les resultats
 INSERT INTO Resultats 
 VALUES (1, 1, 1, 0, 0, 1),  -- France, Athlétisme
-       (2, 1, 3, 0, 0, 0),  -- France, Judo
-       (3, 2, 1, 1, 0, 0),  -- États-unis, Athlétisme
-       (4, 2, 2, 0, 0, 0),  -- États-unis, Natation
-       (5, 3, 1, 0, 0, 0),  -- Canada, Athlétisme
-       (6, 3, 2, 1, 0, 0),  -- Canada, Natation
-       (7, 4, 2, 0, 1, 0),  -- Angleterre, Natation
-       (8, 4, 3, 0, 1, 0),  -- Angleterre, Judo
-       (9, 5, 2, 0, 0, 0),  -- Italie, Natation
-       (10, 5, 3, 0, 0, 0);  -- Italie, Judo
+       (2, 1, 2, 0, 1, 0),  -- France, Natation
+       (3, 1, 3, 2, 1, 0),  -- France, Judo
+       (4, 2, 1, 1, 0, 1),  -- États-unis, Athlétisme
+       (5, 2, 2, 2, 0, 0),  -- États-unis, Natation
+       (6, 2, 3, 0, 0, 0),  -- États-unis, Judo
+       (7, 3, 1, 0, 0, 0),  -- Canada, Athlétisme
+       (8, 3, 2, 0, 0, 1),  -- Canada, Natation
+       (9, 3, 3, 0, 0, 0),  -- Canada, Judo
+       (10, 4, 1, 0, 1, 0),  -- Angleterre, Athlétisme
+       (11, 4, 2, 0, 0, 1),  -- Angleterre, Natation
+       (12, 4, 3, 0, 0, 0),  -- Angleterre, Judo
+       (13, 5, 1, 0, 0, 0),  -- Italie, Athlétisme
+       (14, 5, 2, 0, 1, 0),  -- Italie, Natation
+       (15, 5, 3, 0, 0, 1);  -- Italie, Judo
