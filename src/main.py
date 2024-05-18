@@ -587,6 +587,9 @@ def fenetre_parametre():
     taille_var = tk.StringVar() 
     taille_var.set('Taille') 
     choix_taille = ["Grand: 1920x1080", "Moyen: 1280x720", "Petit: 720x576"]
+    police_var = tk.StringVar() 
+    police_var.set('Taille') 
+    choix_police = ["Arial", "Helvetica"]
     fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
     # création de la barre de défilement 
     cadre_parametre = ctk.CTkScrollableFrame(cadre3,
@@ -595,13 +598,12 @@ def fenetre_parametre():
                                                  fg_color="lightgray",
                                                  )
     cadre_parametre.pack(expand=tk.YES, fill=tk.BOTH)
-    contacter = tk.Label(cadre_parametre, text="""Nous contacter en cas de problème: 
-    nicolas.thierry@groupe-esigelec.org
-     baptiste.michel@groupe-esigelec.org""", font=police, bg="lightgray")
-    contacter.pack(pady=3)
     bouton_taille = tk.OptionMenu(cadre_parametre, taille_var, *choix_taille)
     bouton_taille.pack(pady=3)
     bouton_config(bouton_taille)
+    bouton_police = tk.OptionMenu(cadre_parametre, police_var, *choix_police)
+    bouton_police.pack(pady=3)
+    bouton_config(bouton_police)
     bouton_sauvegarder = tk.Button(cadre_parametre,
                                    text="Sauvegarder",
                                    font=(police, 12),
@@ -610,16 +612,26 @@ def fenetre_parametre():
                                    fg='white', 
                                    activeforeground= 'black', 
                                    activebackground = '#51AA3A',
-                                   command=lambda: parametre(taille_var))
+                                   command=lambda: parametre(taille_var, police_var))
     bouton_sauvegarder.pack()
-def parametre(taille_var):
+    contacter = tk.Label(cadre_parametre, text="""Nous contacter en cas de problème: 
+    nicolas.thierry@groupe-esigelec.org
+     baptiste.michel@groupe-esigelec.org""", font=police, bg="lightgray")
+    contacter.pack(pady=3)
+def parametre(taille_var, police_var):
     taille = taille_var.get()
+    police = police_var.get()
     if taille == "Grand: 1920x1080":
         fenetre.geometry("1920x1080")
     elif taille == "Moyen: 1280x720":
         fenetre.geometry("1280x720")
     elif taille == "Petit: 720x576":
         fenetre.geometry("720x576")
+    elif police == "Arial":
+        police = font.Font(family="Arial", size=15)
+    elif police == "Helvetica":
+        police = font.Font(family="Helvetica", size=15)
+
     
 # Fonctions pour ouvrir et fermer les 2 menus latéraux en cliquant sur l'image d'anneaux des JO
 def ouverture_menus():
