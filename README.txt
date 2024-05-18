@@ -30,6 +30,8 @@ Bon utilisation ! Si vous avez le moindre problème, n'hésitez pas à nous cont
 nicolas.thierry@groupe-esigelec.org
 baptiste.michel@groupe-esigelec.org
 
+Ou venez voir le code entièrement en opensource sur Github : 
+https://github.com/Baptiste-micl/Projet-Jeux-Olympiques
 
 	#####     English     #####
 
@@ -58,3 +60,6 @@ To use the application, please follow these instructions:
 Enjoy! If you have any problems, please don't hesitate to contact us by sending an e-mail to :
 nicolas.thierry@groupe-esigelec.org
 baptiste.michel@groupe-esigelec.org
+
+Or check out the opensource code on Github : 
+https://github.com/Baptiste-micl/Projet-Jeux-Olympiques
