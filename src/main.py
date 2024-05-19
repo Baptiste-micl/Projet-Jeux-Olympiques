@@ -588,8 +588,8 @@ def fenetre_parametre():
     taille_var.set('Taille') 
     choix_taille = ["Grand: 1920x1080", "Moyen: 1280x720", "Petit: 720x576"]
     police_var = tk.StringVar() 
-    police_var.set('Taille') 
-    choix_police = ["Arial", "Helvetica"]
+    police_var.set('Police') 
+    choix_police = ["Arial", "Times New Roman"]
     fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
     # création de la barre de défilement 
     cadre_parametre = ctk.CTkScrollableFrame(cadre3,
@@ -620,17 +620,18 @@ def fenetre_parametre():
     contacter.pack(pady=3)
 def parametre(taille_var, police_var):
     taille = taille_var.get()
-    police = police_var.get()
+    police_selectionne = police_var.get()
     if taille == "Grand: 1920x1080":
         fenetre.geometry("1920x1080")
     elif taille == "Moyen: 1280x720":
         fenetre.geometry("1280x720")
     elif taille == "Petit: 720x576":
         fenetre.geometry("720x576")
-    elif police == "Arial":
+    global police
+    if police_selectionne == "Arial":
         police = font.Font(family="Arial", size=15)
-    elif police == "Helvetica":
-        police = font.Font(family="Helvetica", size=15)
+    elif police_selectionne == "Times New Roman":
+        police = font.Font(family="Times New Roman", size=15)
 
     
 # Fonctions pour ouvrir et fermer les 2 menus latéraux en cliquant sur l'image d'anneaux des JO
