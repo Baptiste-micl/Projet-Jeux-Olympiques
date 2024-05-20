@@ -2,11 +2,11 @@ import tkinter as tk
 from tkinter import font
 from listes import *
 from resultats import *
-import customtkinter as ctk # module permettant de faire des cadres avec une barre de défilement
+import customtkinter as ctk # Module permettant de faire des cadres avec une barre de défilement
 
-# Fenêtre, titre et icone
+# Fenêtre, titre et icône
 fenetre = tk.Tk()
-fenetre.title("Jeux-Olympique")
+fenetre.title("Jeux-Olympiques")
 fenetre.geometry("720x420")
 fenetre.minsize(565, 330)
 fenetre.config(background='lightgray')
@@ -30,10 +30,10 @@ img_gold = tk.PhotoImage(file="images/gold.png")
 img_silver = tk.PhotoImage(file="images/silver.png")
 img_bronze = tk.PhotoImage(file="images/bronze.png")
 
-# Ici on définit une police pour toute la fenetre
+# Ici on définit une police pour toute la fenêtre
 police = font.Font(family="Arial", size=15)
 
-#Cette fonction créer un rectangle avec des coins arrondis (radius) dans un Canvas
+# Cette fonction créer un rectangle avec des coins arrondis (radius) dans un Canvas
 def arrondis(canvas, x1, y1, x2, y2, radius, **kwargs):
     # (x1, y1) : coordonnées du coin supérieur gauche
     # (x2, y2) : coordonnées du coin inférieur droit
@@ -59,10 +59,10 @@ def arrondis(canvas, x1, y1, x2, y2, radius, **kwargs):
               x1, y1]
     # Les coins arrondis sont calculés en ajoutant ou soustrayant le rayon (radius) aux coordonnées des coins du rectangle.
 
-    # Création du polygone avec des coins arrondis
+    # Création du rectangle avec des coins arrondis
     canvas.create_polygon(points, 
                           **kwargs, # permet de faire passer des options supplémentaires, comme fill et outline
-                          smooth=True) # bords du polygone lisses (utile pour l'effet visuel arrondis)
+                          smooth=True) # bords du rectangle lisses (utile pour l'effet visuel arrondis)
 
 # Fonction pour afficher le menu de droite
 def menu_liste():
@@ -149,7 +149,11 @@ def menu_liste():
                                    fg='black', 
                                    command=menu_disciplines)
     bouton_disciplines.pack()
-    bouton_ajouter_sportif = tk.Button(cadre2, text="Gérer les sportifs", font=(police, 11), 
+    bouton_ajouter_sportif = tk.Button(
+                    cadre2, 
+                    text="Gérer les sportifs", 
+                    font=(police, 11), 
+                    cursor='hand2',
                     width=13,
                     bg='lightpink', 
                     fg='black', 
@@ -195,7 +199,11 @@ def fenetre_ajouter_sportif():
     bouton_pays.pack(pady=3)
     bouton_discipline = tk.OptionMenu(cadre3, nom_discipline_var, *discipline)
     bouton_discipline.pack(pady=3)
-    bouton_ajouter_sportif = tk.Button(cadre3, text="Ajouter un sportif", font=(police, 12), 
+    bouton_ajouter_sportif = tk.Button(
+        cadre3, 
+        text="Ajouter un sportif", 
+        cursor='hand2',
+        font=(police, 12), 
         width=20,
         bg='#51AA3A', 
         fg='white', 
@@ -204,7 +212,11 @@ def fenetre_ajouter_sportif():
         command=lambda: recuperer_valeurs_ajout(),
         )
     bouton_ajouter_sportif.pack()
-    bouton_supprimer_sportif = tk.Button(cadre3, text="Supprimer un sportif", font=(police, 12), 
+    bouton_supprimer_sportif = tk.Button(
+        cadre3, 
+        text="Supprimer un sportif", 
+        cursor='hand2',
+        font=(police, 12), 
         width=20,
         bg='#C3423D', 
         fg='white',
@@ -459,7 +471,11 @@ def menu_resultat():
                                    fg='black', 
                                    command=menu_resultats_disciplines)
     bouton_disciplines.pack()
-    bouton_ajouter_resultat = tk.Button(cadre1, text="Ajouter un resultat", font=(police, 11),
+    bouton_ajouter_resultat = tk.Button(
+                    cadre1, 
+                    text="Ajouter un résultat", 
+                    font=(police, 11),
+                    cursor='hand2',
                     width=13,
                     bg='lightpink', 
                     fg='black', 
@@ -490,7 +506,11 @@ def fenetre_ajouter_resultat():
     bouton_pays.pack(pady=3)
     bouton_medaille = tk.OptionMenu(cadre3, choix_medaille_var, *medaille)
     bouton_medaille.pack(pady=3)
-    bouton_ajouter_resultat = tk.Button(cadre3, text="Ajouter un resultat", font=(police, 12), 
+    bouton_ajouter_resultat = tk.Button(
+        cadre3, 
+        text="Ajouter un résultat", 
+        font=(police, 12), 
+        cursor='hand2',
         width=20,
         bg='#51AA3A', 
         fg='white', 
@@ -563,6 +583,7 @@ def bouton_config(bouton):
         activebackground="#184A73",
         activeforeground="white",
         font=(police,12),
+        cursor='hand2',
         border=0,
         pady=10,
         highlightthickness=1,
@@ -589,24 +610,29 @@ def fenetre_parametre():
     choix_taille = ["Grand: 1920x1080", "Moyen: 1280x720", "Petit: 720x576"]
     police_var = tk.StringVar() 
     police_var.set('Police') 
-    choix_police = ["Arial", "Times New Roman"]
+    choix_police = ["Arial", "Georgia", "Calibri", "Impact", "Arial Black"]
     fond.configure(image=pixel_gris, bg="lightgray") # l'image des anneaux des JO devient l'image d'un pixel gris invisible
-    # création de la barre de défilement 
     cadre_parametre = ctk.CTkScrollableFrame(cadre3,
-                                                 label_text="Parametre", # titre du cadre
-                                                 label_font=(police,19),
-                                                 fg_color="lightgray",
-                                                 )
+                                                label_text="Paramètres", # titre du cadre
+                                                label_font=(police,19),
+                                                fg_color="lightgray",
+                                                # barre de défilement invisible
+                                                scrollbar_button_hover_color="lightgray",
+                                                scrollbar_button_color="lightgray"
+                                                )
     cadre_parametre.pack(expand=tk.YES, fill=tk.BOTH)
     bouton_taille = tk.OptionMenu(cadre_parametre, taille_var, *choix_taille)
     bouton_taille.pack(pady=3)
     bouton_config(bouton_taille)
+    bouton_taille.config(width=175)
     bouton_police = tk.OptionMenu(cadre_parametre, police_var, *choix_police)
     bouton_police.pack(pady=3)
     bouton_config(bouton_police)
+    bouton_police.config(width=175)
     bouton_sauvegarder = tk.Button(cadre_parametre,
                                    text="Sauvegarder",
                                    font=(police, 12),
+                                   cursor='hand2',
                                    width=20, 
                                    bg='#51AA3A', 
                                    fg='white', 
@@ -617,7 +643,22 @@ def fenetre_parametre():
     contacter = tk.Label(cadre_parametre, text="""Nous contacter en cas de problème: 
     nicolas.thierry@groupe-esigelec.org
      baptiste.michel@groupe-esigelec.org""", font=police, bg="lightgray")
-    contacter.pack(pady=3)
+    contacter.pack(pady=20)
+    # Bouton permettant de fermer la fenêtre
+    bouton_quitter = tk.Button(
+        cadre3, 
+        text="Fermer le fenêtre", 
+        font=(police, 12), 
+        cursor='hand2',
+        width=20,
+        bg='#C3423D', 
+        fg='white',
+        activeforeground= 'black', 
+        activebackground = '#C3423D', 
+        command=fenetre.quit
+        )
+    bouton_quitter.pack(pady=3)
+
 def parametre(taille_var, police_var):
     taille = taille_var.get()
     police_selectionne = police_var.get()
@@ -630,8 +671,14 @@ def parametre(taille_var, police_var):
     global police
     if police_selectionne == "Arial":
         police = font.Font(family="Arial", size=15)
-    elif police_selectionne == "Times New Roman":
-        police = font.Font(family="Times New Roman", size=15)
+    elif police_selectionne == "Georgia":
+        police = font.Font(family="Georgia", size=15)
+    elif police_selectionne == "Calibri":
+        police = font.Font(family="Calibri", size=15)
+    elif police_selectionne == "Impact":
+        police = font.Font(family="Impact", size=15)
+    elif police_selectionne == "Arial Black":
+        police = font.Font(family="Arial Black", size=15)
 
     
 # Fonctions pour ouvrir et fermer les 2 menus latéraux en cliquant sur l'image d'anneaux des JO
@@ -650,13 +697,13 @@ cadre1.pack(side="left", fill="y")
 # Cadre pour le deuxieme bouton déroulant à droite
 cadre2 = tk.Frame(fenetre, bg='lightgray', bd=1, relief="solid")
 cadre2.pack(side="right", fill="y")
-# Cadre central pour l'image et pour les différentes fenetres d'affichage
+# Cadre central pour l'image et pour les différentes fenêtres d'affichage
 cadre3 = tk.Frame(fenetre, bg='lightgray')
 cadre3.pack(expand=tk.YES,side="top", fill="both")
 
 # Bouton déroulant à gauche
 bouton_deroulant1 = tk.Button(cadre1,
-                              text="Resultats ",
+                              text="Résultats ",
                               width=120, 
                               command=menu_resultat,
                               cursor='hand2', 
@@ -669,10 +716,12 @@ bouton_deroulant1 = tk.Button(cadre1,
                               )
 bouton_deroulant1.pack(fill=tk.X)
 
-# Bouton parametre
+# Bouton paramètre
 bouton_parametre = tk.Button(cadre1,
                              image = img_parametre,
+                             cursor='hand2',
                              bg='#ACCDD8',
+                             activebackground='#ACCDD8',
                              command=fenetre_parametre)
 bouton_parametre.pack(anchor="sw", side="bottom")
 
