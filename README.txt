@@ -24,6 +24,7 @@ Pour installer la base de données, veuillez suivre ces étapes :
 Pour utiliser l'application, veuillez suivre les instructions suivantes :
 - Défilement horizontal : Utilisez la combinaison `MAJ + Molette` pour faire défiler horizontalement lors de l'affichage des descriptions des disciplines.
 -  Mise à jour de la base de données : Après l'ajout d'un résultat ou d'un sportif, ainsi qu'à la supression d'un sportif, veuillez fermer le programme. Puis relancer le afin de mettre à jour la base de données.
+- Ce programme n'est utilisable que sur Windows.
 
   ###   Contact   ###
 Bon utilisation ! Si vous avez le moindre problème, n'hésitez pas à nous contacter en nous envoyant un mail à :
@@ -55,6 +56,7 @@ To install the database, please follow these steps:
 To use the application, please follow these instructions:
 - Horizontal scrolling: Use the `MAJ + Wheel` combination to scroll horizontally when displaying discipline descriptions.
 - Updating the database : After adding a result or athlete, or deleting an athlete, please close the program. Then restart it to update the database.
+- This program can only be used on Windows.
 
   ### Contact ###
 Enjoy! If you have any problems, please don't hesitate to contact us by sending an e-mail to :
